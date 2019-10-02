@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/29 20:36:27 by kmira             #+#    #+#             */
-/*   Updated: 2019/10/01 20:30:00 by kmira            ###   ########.fr       */
+/*   Updated: 2019/10/02 00:19:05 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int		main(int aa, char **args)
 {
-	printf("Testing\n");
-
+	printf("Program Failed successfully\n");
 	return (0);
 }

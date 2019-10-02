@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/29 22:03:58 by kmira             #+#    #+#             */
-/*   Updated: 2019/10/01 20:29:40 by kmira            ###   ########.fr       */
+/*   Updated: 2019/10/02 00:12:50 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,13 @@ enum e_flags
     S_FLAG  = 0b01000,
     NO_FLAG = 0b10000
 };
+
+typedef struct	s_flag_pair
+{
+	int				a;
+	enum e_flags	flag_value;
+}				t_flag_pair;
+
 
 typedef struct	s_string
 {

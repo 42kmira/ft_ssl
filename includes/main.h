@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/29 20:34:49 by kmira             #+#    #+#             */
-/*   Updated: 2019/09/30 14:21:22 by kmira            ###   ########.fr       */
+/*   Updated: 2019/10/01 20:43:46 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,6 @@
 # include <string.h>
 
 # include "crypto_main_structs.h"
+# include "libft.h"
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/30 14:16:06 by kmira             #+#    #+#             */
-/*   Updated: 2019/09/30 14:21:40 by kmira            ###   ########.fr       */
+/*   Updated: 2019/10/02 00:13:20 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,5 @@
 
 void	convert(void)
 {
-	t_crypto_functions function;
+	t_crypto_funtions functions;
 }
