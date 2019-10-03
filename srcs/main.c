@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/29 20:36:27 by kmira             #+#    #+#             */
-/*   Updated: 2019/10/03 00:17:25 by kmira            ###   ########.fr       */
+/*   Updated: 2019/10/03 00:20:15 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,12 @@ int		main(int aa, char **args)
 	{
 		i = 1;
 		set_function(do_crypto_function, args[i]);
-		// while (i < aa)
-		// {
-		// 	// parse_flags(output_handler, args[i], &i);
+		while (i < aa)
+		{
+			parse_flags(output_handler, args[i], &i);
 		// 	// do_crypto_function(output_handler, args[i], &i);
 		// 	// output_msg_digest(output_handler);
-		// }
+		}
 	}
 	printf("Program Failed successfully\n");
 	return (0);
