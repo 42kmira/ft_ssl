@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/29 22:03:58 by kmira             #+#    #+#             */
-/*   Updated: 2019/10/02 01:48:14 by kmira            ###   ########.fr       */
+/*   Updated: 2019/10/02 23:54:01 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,13 @@
 // • -q, quiet mode
 // • -r, reverse the format of the output.
 // • -s, print the sum of the given string
+
+typedef struct	s_string
+{
+	size_t		length;
+	char		*string;
+	char		free;
+}				t_string;
 
 enum e_flags
 {
@@ -33,19 +40,17 @@ typedef struct	s_flag_pair
 	int				pair;
 }				t_flag_pair;
 
-typedef struct	s_string
-{
-	size_t		length;
-	char		*string;
-	char		free;
-}				t_string;
-
 typedef struct	s_output_handler
 {
 	t_string		*output;
 	enum e_flags	flags;
 }				t_output_handler;
 
+typedef struct	s_function_pair
+{
+	char			*name;
+	t_string		*(*function)(t_output_handler *output_handler, char **, int *);
+}				t_function_pair;
 
 typedef union	u_crypto_functions
 {

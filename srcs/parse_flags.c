@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/02 00:41:20 by kmira             #+#    #+#             */
-/*   Updated: 2019/10/02 02:32:27 by kmira            ###   ########.fr       */
+/*   Updated: 2019/10/02 23:51:44 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	parse_flags(t_output_handler *output_handler, char **args)
 		j = 0;
 		while (g_flag_array[j].flag_value != NO_FLAG)
 		{
-			if (g_flag_array[j].pair == args[i])
+			if (g_flag_array[j].pair == args[i][j])
 			{
 				output_handler->flags |= g_flag_array[j].flag_value;
 				break ;

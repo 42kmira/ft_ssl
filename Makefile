@@ -6,7 +6,7 @@
 #    By: kmira <kmira@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/29 20:34:09 by kmira             #+#    #+#              #
-#    Updated: 2019/10/02 00:20:53 by kmira            ###   ########.fr        #
+#    Updated: 2019/10/03 00:02:17 by kmira            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,9 @@ INCLUDE = -I includes
 
 SRCS = \
 		function_dispatch \
-		main
+		main \
+		md5 \
+		parse_flags
 
 C_FILES = $(addprefix srcs/, $(addsuffix .c, $(SRCS)))
 OBJS = $(addsuffix .o, $(SRCS))
