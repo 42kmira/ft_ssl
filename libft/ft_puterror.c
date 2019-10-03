@@ -1,25 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.h                                             :+:      :+:    :+:   */
+/*   ft_puterror.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/29 20:34:49 by kmira             #+#    #+#             */
-/*   Updated: 2019/10/02 17:40:21 by kmira            ###   ########.fr       */
+/*   Created: 2019/05/16 16:38:24 by kmira             #+#    #+#             */
+/*   Updated: 2019/10/02 01:05:28 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAIN_H
-# define MAIN_H
+#include "libft.h"
 
-# include "debug.h"
-
-# include <stdlib.h>
-# include <stddef.h>
-
-# include "color.h"
-# include "crypto_config.h"
-# include "libft.h"
-
-#endif
+void	ft_puterror(char const *s)
+{
+	if (s == NULL)
+		return ;
+	write(1, s, ft_strlen(s));
+	write(1, "\n", 1);
+	exit(EXIT_FAILURE);
+}

@@ -1,25 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.h                                             :+:      :+:    :+:   */
+/*   crypto_config.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/29 20:34:49 by kmira             #+#    #+#             */
-/*   Updated: 2019/10/02 17:40:21 by kmira            ###   ########.fr       */
+/*   Created: 2019/10/02 00:26:07 by kmira             #+#    #+#             */
+/*   Updated: 2019/10/02 00:32:51 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAIN_H
-# define MAIN_H
+#ifndef CRYPTO_CONFIG_H
+# define CRYPTO_CONFIG_H
 
-# include "debug.h"
+# include "crypto_main_structs.h"
 
-# include <stdlib.h>
-# include <stddef.h>
+static t_flag_pair	g_flag_array[] =
+{
+	{'P', P_FLAG},
+	{'Q', Q_FLAG},
+	{'R', R_FLAG},
+	{'S', S_FLAG},
+	{'\0', NO_FLAG}
+};
 
-# include "color.h"
-# include "crypto_config.h"
-# include "libft.h"
+extern	t_flag_pair g_flag_array[];
 
 #endif

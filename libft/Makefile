@@ -6,7 +6,7 @@
 #    By: kmira <kmira@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/12 11:40:08 by kmira             #+#    #+#              #
-#    Updated: 2019/02/24 15:44:00 by kmira            ###   ########.fr        #
+#    Updated: 2019/10/02 01:05:23 by kmira            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,6 +47,7 @@ FUNCS	=	atoi \
 			putchar \
 			putendl_fd \
 			putendl \
+			puterror \
 			putnbr_fd \
 			putnbr \
 			putstr_fd \

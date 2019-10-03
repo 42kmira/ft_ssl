@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 14:32:09 by kmira             #+#    #+#             */
-/*   Updated: 2019/02/23 23:01:31 by kmira            ###   ########.fr       */
+/*   Updated: 2019/10/02 01:11:38 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,5 +110,6 @@ char				*ft_str_go_to_end(const char *str);
 size_t				ft_min(size_t a, size_t b);
 int					ft_islower(int c);
 int					ft_isupper(int c);
+void				ft_puterror(char const *s);
 
 #endif

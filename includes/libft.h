@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/12 14:32:09 by kmira             #+#    #+#             */
-/*   Updated: 2019/10/01 20:29:16 by kmira            ###   ########.fr       */
+/*   Updated: 2019/10/02 01:11:51 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ typedef struct		s_list
 t_list				*ft_lstnew(void const *content, size_t content_size);
 void				ft_lstdelone(t_list **alst, void (*del)(void *, size_t));
 void				ft_lstdel(t_list **lst, void (*del)(void *, size_t));
-void				ft_lstadd(t_list **alst, t_list *new_node);
+void				ft_lstadd(t_list **alst, t_list *new);
 void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 
@@ -110,5 +110,6 @@ char				*ft_str_go_to_end(const char *str);
 size_t				ft_min(size_t a, size_t b);
 int					ft_islower(int c);
 int					ft_isupper(int c);
+void				ft_puterror(char const *s);
 
 #endif

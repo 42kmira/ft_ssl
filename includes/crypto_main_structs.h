@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/29 22:03:58 by kmira             #+#    #+#             */
-/*   Updated: 2019/10/02 00:12:50 by kmira            ###   ########.fr       */
+/*   Updated: 2019/10/02 01:48:14 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,9 @@ enum e_flags
 
 typedef struct	s_flag_pair
 {
-	int				a;
 	enum e_flags	flag_value;
+	int				pair;
 }				t_flag_pair;
-
 
 typedef struct	s_string
 {
@@ -41,10 +40,17 @@ typedef struct	s_string
 	char		free;
 }				t_string;
 
+typedef struct	s_output_handler
+{
+	t_string		*output;
+	enum e_flags	flags;
+}				t_output_handler;
+
+
 typedef union	u_crypto_functions
 {
-	t_string	(*function_md5)(void);
-	t_string	(*function_sha256)(void);
+	t_string	(*function_md5)(t_output_handler *, char **, int *);
+	t_string	(*function_sha256)(t_output_handler *, char **, int *);
 }				t_crypto_funtions;
 
 #endif
