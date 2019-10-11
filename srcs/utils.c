@@ -1,18 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   debug.h                                            :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/05 16:30:10 by kmira             #+#    #+#             */
-/*   Updated: 2019/10/10 22:12:27 by kmira            ###   ########.fr       */
+/*   Created: 2019/10/10 00:44:48 by kmira             #+#    #+#             */
+/*   Updated: 2019/10/10 03:19:32 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DEBUG_H
-# define DEBUG_H
+#include "ft_ssl_main.h"
 
-# include <stdio.h>
+void	ft_strnrev(char *str, size_t n)
+{
+	size_t	i;
+	char	container;
 
-#endif
+	i = 0;
+	n = n - 1;
+	while (i < n)
+	{
+		container = str[i];
+		str[i] = str[n];
+		str[n] = container;
+		n--;
+		i++;
+	}
+}

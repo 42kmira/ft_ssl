@@ -6,36 +6,51 @@
 #    By: kmira <kmira@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/29 20:34:09 by kmira             #+#    #+#              #
-#    Updated: 2019/10/03 00:02:17 by kmira            ###   ########.fr        #
+#    Updated: 2019/10/10 22:49:44 by kmira            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = ft_ssl
 
+FLAGS = -Wall -Wextra -Werror
+
 LIBRARY = libft/libft.a
 
 INCLUDE = -I includes
 
+MD5_SRCS = \
+	main_md5
+
+SHA256_SRCS = \
+	main_sha256
+
 SRCS = \
+		debug \
 		function_dispatch \
 		main \
-		md5 \
-		parse_flags
+		output \
+		parse_flags \
+		utils
 
-C_FILES = $(addprefix srcs/, $(addsuffix .c, $(SRCS)))
+C_FILES = \
+	$(addprefix srcs/md5/, $(addsuffix .c, $(MD5_SRCS))) \
+	$(addprefix srcs/sha256/, $(addsuffix .c, $(SHA256_SRCS))) \
+	$(addprefix srcs/, $(addsuffix .c, $(SRCS)))
+
 OBJS = $(addsuffix .o, $(SRCS))
 
+# gcc -o $(NAME) $(OBJS) $(LIBRARY)
 all: $(NAME)
 
-$(NAME): $(LIBRARY) $(OBJS)
+$(NAME): $(LIBRARY)
 	@echo "Creating executable ft_ssl"
-	gcc -o $(NAME) $(OBJS) $(LIBRARY)
+	@gcc $(FLAGS) $(LIBRARY) $(INCLUDE) $(C_FILES) -o $(NAME)
 
 $(LIBRARY):
 	make -C libft/
 
-$(OBJS):
-	gcc -c $(FLAGS) $(INCLUDE) $(C_FILES)
+# $(OBJS):
+# 	gcc -c $(FLAGS) $(INCLUDE) $(C_FILES)
 
 clean:
 	@echo "Removing all .o files"
@@ -53,4 +68,4 @@ quick: clean
 	@rm -f $(NAME)
 	make all
 	@clear
-	./$(NAME)
+	./ft_ssl md5 -s Testing

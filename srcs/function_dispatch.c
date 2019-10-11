@@ -5,32 +5,27 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/30 14:16:06 by kmira             #+#    #+#             */
-/*   Updated: 2019/10/03 00:18:17 by kmira            ###   ########.fr       */
+/*   Created: 2019/10/05 16:43:40 by kmira             #+#    #+#             */
+/*   Updated: 2019/10/05 16:56:12 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "main.h"
+#include "ft_ssl_main.h"
 
-void	set_function(t_string *(*fun)(t_output_handler *, char **, int *),
-					char *str)
+void	get_command(char *key, t_string *(**result)(t_output_handler *, char *))
 {
-	int i;
+	int		i;
+	char	*command_name;
 
 	i = 0;
-	while (g_crypto_dispatch_table[i].function != NULL_CRYPTO_FUNCTION)
+	*result = NULL;
+	while (g_crypto_dispatch_table[i].function != NULL)
 	{
-		if (ft_strcmp(str, g_crypto_dispatch_table[i].name) == 0)
-		{
-			fun = g_crypto_dispatch_table[i].function;
-			break ;
-		}
+		command_name = g_crypto_dispatch_table[i].name;
+		if (ft_strequ(key, command_name))
+			*result = g_crypto_dispatch_table[i].function;
 		i++;
 	}
-	if (g_crypto_dispatch_table[i].function == NULL_CRYPTO_FUNCTION)
-	{
-		ft_putstr(BOLDRED"ft_ssl error: "COLOR_RESET);
-		ft_putstr(str);
-		ft_puterror(BOLDRED" crypto function does not exist!"COLOR_RESET);
-	}
+	if (*result == NULL)
+		printf("Error, wrong function name, usage\n");
 }

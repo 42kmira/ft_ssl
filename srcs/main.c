@@ -5,34 +5,36 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/29 20:36:27 by kmira             #+#    #+#             */
-/*   Updated: 2019/10/03 00:20:15 by kmira            ###   ########.fr       */
+/*   Created: 2019/10/05 16:28:18 by kmira             #+#    #+#             */
+/*   Updated: 2019/10/10 22:13:51 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "main.h"
-
-#define ERROR_USAGE "usage: ft_ssl command [command opts] [command args]"
+#include "ft_ssl_main.h"
 
 int		main(int aa, char **args)
 {
-	t_output_handler	*output_handler;
-	t_string			*(*do_crypto_function)(t_output_handler *, char **, int *);
-	int					i;
+	t_output_handler	output_handler;
+	t_string			*(*crypto_function)(t_output_handler *, char *);
 
 	if (aa <= 1)
-		ft_puterror(""BOLDCYAN ERROR_USAGE COLOR_RESET);
+		printf("USAGE ERROR\n");
 	else
 	{
-		i = 1;
-		set_function(do_crypto_function, args[i]);
-		while (i < aa)
+		get_command(args[1], &crypto_function);
+		ft_bzero(&output_handler, sizeof(output_handler));
+		if (aa == CMD_ONLY)
 		{
-			parse_flags(output_handler, args[i], &i);
-		// 	// do_crypto_function(output_handler, args[i], &i);
-		// 	// output_msg_digest(output_handler);
+			output_handler.flags |= P_FLAG;
+			printf("Running function on stdin\n");
+			crypto_function(&output_handler, STDIN_OPTION);
+		}
+		else
+		{
+			// printf("Do Flags\n");
+			flag_loop(&output_handler, &args[FLAG_START], crypto_function);
+			printf("Then files if there are any\n");
 		}
 	}
-	printf("Program Failed successfully\n");
 	return (0);
 }
