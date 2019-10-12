@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/05 16:51:28 by kmira             #+#    #+#             */
-/*   Updated: 2019/10/12 02:55:55 by kmira            ###   ########.fr       */
+/*   Updated: 2019/10/12 03:05:27 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,10 @@ static void	one_chunk(t_md5 *md5_info)
 	u_int32_t	g;
 	u_int32_t	f;
 
-	u_int32_t a = 0x67452301;
-	u_int32_t b = 0xefcdab89;
-	u_int32_t c = 0x98badcfe;
-	u_int32_t d = 0x10325476;
+	u_int32_t a = md5_info->state_a;
+	u_int32_t b = md5_info->state_b;
+	u_int32_t c = md5_info->state_c;
+	u_int32_t d = md5_info->state_d;
 
 	i = 0;
 	while (i < 64)
@@ -101,10 +101,10 @@ static void	one_chunk(t_md5 *md5_info)
 		i++;
 	}
 
-	md5_info->chunk.block[0] = a + 0x67452301;
-	md5_info->chunk.block[1] = b + 0xefcdab89;
-	md5_info->chunk.block[2] = c + 0x98badcfe;
-	md5_info->chunk.block[3] = d + 0x10325476;
+	md5_info->chunk.block[0] = a + md5_info->state_a;
+	md5_info->chunk.block[1] = b + md5_info->state_b;
+	md5_info->chunk.block[2] = c + md5_info->state_c;
+	md5_info->chunk.block[3] = d + md5_info->state_d;
 	// printf("STATE: %11u\n", md5_info->chunk.block[0]);
 	// printf("STATE: %11u\n", md5_info->chunk.block[1]);
 	// printf("STATE: %11u\n", md5_info->chunk.block[2]);
@@ -145,10 +145,25 @@ void	fill_chunk(char *str, t_512_chunk *chunk)
 		transmutation_decive.args[j] = str[i * 4 + j];
 		j++;
 	}
-	printf("J: %d\n", j);
 	transmutation_decive.args[j] = 0b10000000;
 	chunk->block[i] = transmutation_decive.num;
 	chunk->block[14] = len * 8;
+}
+
+void		request_chunk(t_output_handler *output_handler, char *dest)
+{
+	int		bytes;
+	int		fd;
+
+	fd = output_handler->fd;
+	if (output_handler->flags & F_FLAG)
+		request_from_file(fd, dest, bytes);
+	else if (output_handler->flags & P_FLAG)
+		request_from_file(0, dest, bytes);
+	else if (output_handler->flags & S_FLAG)
+		request_from_string(dest, bytes);
+	else
+		ft_puterror("This we cannot read from");
 }
 
 struct s_string	*crypto_algo_md5   (struct s_output_handler *output_handle, char *args)
