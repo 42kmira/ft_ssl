@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/05 16:38:07 by kmira             #+#    #+#             */
-/*   Updated: 2019/10/10 03:24:34 by kmira            ###   ########.fr       */
+/*   Updated: 2019/10/12 01:56:37 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,13 @@ static char g_digits[] = "0123456789abcdef";
 
 enum e_flags
 {
-    PREVIOUSLY_P = 0b000001,
-    P_FLAG       = 0b000010,
-    Q_FLAG       = 0b000100,
-    R_FLAG       = 0b001000,
-    S_FLAG       = 0b010000,
-    NO_FLAG      = 0b100000
+    PREVIOUSLY_P = 0b0000001,
+    F_FLAG       = 0b0000010,
+    P_FLAG       = 0b0000100,
+    Q_FLAG       = 0b0001000,
+    R_FLAG       = 0b0010000,
+    S_FLAG       = 0b0100000,
+    NO_FLAG      = 0b1000000
 };
 
 # define ARGUMENT_FLAGS (S_FLAG | P_FLAG)

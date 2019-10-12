@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/05 16:36:42 by kmira             #+#    #+#             */
-/*   Updated: 2019/10/11 02:39:01 by kmira            ###   ########.fr       */
+/*   Updated: 2019/10/12 02:00:58 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct	s_output_handler
 	t_string		*output;
 	enum e_flags	flags;
 	char			*command;
+	int				fd;
 }				t_output_handler;
 
 typedef union	s_512_chunk

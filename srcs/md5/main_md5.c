@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/05 16:51:28 by kmira             #+#    #+#             */
-/*   Updated: 2019/10/12 00:39:24 by kmira            ###   ########.fr       */
+/*   Updated: 2019/10/12 02:55:55 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ void	fill_chunk(char *str, t_512_chunk *chunk)
 	i = 0;
 	while (i < 12)
 	{
-		if ((i + 1) * 4 >= len)
+		if ((i + 1) * 4 > len)
 			break ;
 		transmutation_decive.num = 0;
 		ft_strncpy(transmutation_decive.args, &str[i * 4], 4);
@@ -145,6 +145,7 @@ void	fill_chunk(char *str, t_512_chunk *chunk)
 		transmutation_decive.args[j] = str[i * 4 + j];
 		j++;
 	}
+	printf("J: %d\n", j);
 	transmutation_decive.args[j] = 0b10000000;
 	chunk->block[i] = transmutation_decive.num;
 	chunk->block[14] = len * 8;
