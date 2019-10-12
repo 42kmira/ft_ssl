@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/05 16:51:28 by kmira             #+#    #+#             */
-/*   Updated: 2019/10/11 02:16:07 by kmira            ###   ########.fr       */
+/*   Updated: 2019/10/12 00:39:24 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,7 @@ typedef union	u_converter
 void	fill_chunk(char *str, t_512_chunk *chunk)
 {
 	int	i;
+	int	j;
 	int	len;
 	t_conveter	transmutation_decive;
 
@@ -130,14 +131,22 @@ void	fill_chunk(char *str, t_512_chunk *chunk)
 	i = 0;
 	while (i < 12)
 	{
-		if (i * 4 >= len)
+		if ((i + 1) * 4 >= len)
 			break ;
 		transmutation_decive.num = 0;
 		ft_strncpy(transmutation_decive.args, &str[i * 4], 4);
 		chunk->block[i] = transmutation_decive.num;
 		i++;
 	}
-	chunk->block[i] = 128;
+	transmutation_decive.num = 0;
+	j = 0;
+	while (str[i * 4 + j] != '\0')
+	{
+		transmutation_decive.args[j] = str[i * 4 + j];
+		j++;
+	}
+	transmutation_decive.args[j] = 0b10000000;
+	chunk->block[i] = transmutation_decive.num;
 	chunk->block[14] = len * 8;
 }
 
@@ -156,6 +165,7 @@ struct s_string	*crypto_algo_md5   (struct s_output_handler *output_handle, char
 	md5.digest->length = 32;
 	ft_bzero(&md5.chunk, sizeof(md5.chunk));
 	fill_chunk(args, &md5.chunk);
+	print_chunk(&md5.chunk);
 	one_chunk(&md5);
 	make_digest_md5(md5.chunk.block, md5.digest);
 
