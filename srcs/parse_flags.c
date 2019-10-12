@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/05 17:03:03 by kmira             #+#    #+#             */
-/*   Updated: 2019/10/10 22:23:34 by kmira            ###   ########.fr       */
+/*   Updated: 2019/10/11 02:13:26 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,12 @@ void		ready_input(char **args, int *i, int *j, t_output_handler *output_handler)
 ** the file parsing.
 */
 
+void	override_flags(t_output_handler *output_handler)
+{
+	if (output_handler->flags & (Q_FLAG))
+		output_handler->flags &= ~(R_FLAG);
+}
+
 void		flag_loop(t_output_handler *output_handler, char **args, t_string *(*crypto_function)(t_output_handler *, char *))
 {
 	int			i;
@@ -128,6 +134,7 @@ void		flag_loop(t_output_handler *output_handler, char **args, t_string *(*crypt
 	while (args[i] != NULL)
 	{
 		flag_result = fetch_flags(&output_handler->flags, args, &i, &j);
+		override_flags(output_handler);
 		ready_input(args, &i, &j, output_handler);
 		if (flag_result == COMPUTE_FUNCTION)
 		{

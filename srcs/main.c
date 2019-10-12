@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/05 16:28:18 by kmira             #+#    #+#             */
-/*   Updated: 2019/10/10 22:13:51 by kmira            ###   ########.fr       */
+/*   Updated: 2019/10/11 03:04:53 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int		main(int aa, char **args)
 	{
 		get_command(args[1], &crypto_function);
 		ft_bzero(&output_handler, sizeof(output_handler));
+		output_handler.command = args[1];
 		if (aa == CMD_ONLY)
 		{
 			output_handler.flags |= P_FLAG;
@@ -33,7 +34,7 @@ int		main(int aa, char **args)
 		{
 			// printf("Do Flags\n");
 			flag_loop(&output_handler, &args[FLAG_START], crypto_function);
-			printf("Then files if there are any\n");
+			// printf("Then files if there are any\n");
 		}
 	}
 	return (0);

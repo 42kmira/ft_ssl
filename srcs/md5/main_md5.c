@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/05 16:51:28 by kmira             #+#    #+#             */
-/*   Updated: 2019/10/10 21:54:11 by kmira            ###   ########.fr       */
+/*   Updated: 2019/10/11 02:16:07 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,10 +150,11 @@ struct s_string	*crypto_algo_md5   (struct s_output_handler *output_handle, char
 	md5.state_c = 0x98badcfe;
 	md5.state_d = 0x10325476;
 
-	printf("Doing md5 on input %s\n", args);
+	// printf("Doing md5 on input %s\n", args);
 	md5.digest = malloc(sizeof(*md5.digest) * (1));
 	md5.digest->string = malloc(sizeof(*md5.digest) * (32));
 	md5.digest->length = 32;
+	ft_bzero(&md5.chunk, sizeof(md5.chunk));
 	fill_chunk(args, &md5.chunk);
 	one_chunk(&md5);
 	make_digest_md5(md5.chunk.block, md5.digest);
