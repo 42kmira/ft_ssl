@@ -6,7 +6,7 @@
 #    By: kmira <kmira@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/29 20:34:09 by kmira             #+#    #+#              #
-#    Updated: 2019/10/10 23:23:20 by kmira            ###   ########.fr        #
+#    Updated: 2019/10/13 20:14:26 by kmira            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,7 @@ SRCS = \
 		function_dispatch \
 		main \
 		output \
+		input_reading \
 		parse_flags \
 		utils
 

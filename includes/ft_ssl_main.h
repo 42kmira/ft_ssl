@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/05 16:29:26 by kmira             #+#    #+#             */
-/*   Updated: 2019/10/10 22:49:35 by kmira            ###   ########.fr       */
+/*   Updated: 2019/10/13 20:12:48 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,14 @@
 # include "libft.h"
 # include "ft_ssl_structs.h"
 
-void			get_command(char *key, t_string *(**result)(t_output_handler *, char *));
+/*
+** -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-
+** File: debug.c
+** DEBUG
+*/
+
+void			print_chunk(t_512_chunk *chunk);
+
 
 void			flag_loop(t_output_handler *output_handler, char **args, t_string *(*crypto_function)(t_output_handler *, char *));
 
@@ -28,9 +35,29 @@ struct s_string *crypto_algo_sha256(struct s_output_handler *output_handle, char
 
 void			print_output(t_output_handler *output_handler, t_string *digest, char *args);
 
+/*
+** -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-
+** File: input_reading.c
+*/
+
+void			request_from_string(t_string *dest, int bytes, t_output_handler *output_handler);
+
+/*
+** -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-
+** File: function_dispatch.c
+** Dispatch the crypto algorithm.
+*/
+
+void			get_command(char *key, t_string *(**result)(t_output_handler *, char *));
+
+/*
+** -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-
+** File: utils.c
+** Utility function providing misc functionality and readibility.
+*/
+
 void			ft_strnrev(char *str, size_t n);
 
-void	print_chunk(t_512_chunk *chunk);
 
 # define CMD_ONLY 2
 # define FLAG_START 2

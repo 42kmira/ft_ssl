@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 22:20:46 by kmira             #+#    #+#             */
-/*   Updated: 2019/10/10 19:32:12 by kmira            ###   ########.fr       */
+/*   Updated: 2019/10/12 03:15:08 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,12 +102,14 @@ static const u_int32_t g_s[64] =
 	6, 10, 15, 21
 };
 
+#define A 0
+#define B 1
+#define C 2
+#define D 3
+
 typedef struct	s_md5
 {
-	uint32_t	state_a;
-	uint32_t	state_b;
-	uint32_t	state_c;
-	uint32_t	state_d;
+	uint32_t	state[4];
 	t_512_chunk	chunk;
 	t_string	*digest;
 }				t_md5;
