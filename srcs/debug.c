@@ -6,20 +6,33 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 21:54:25 by kmira             #+#    #+#             */
-/*   Updated: 2019/10/13 20:46:30 by kmira            ###   ########.fr       */
+/*   Updated: 2019/10/16 01:32:32 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl_main.h"
 
-void	print_chunk(t_512_chunk *chunk)
+void	print_chunk(uint32_t block[16])
 {
 	int i;
 
 	i = 0;
 	while (i < 16)
 	{
-		printf("BLOCK[%2d]: %10u\n", i, chunk->block[i]);
+		printf("BLOCK[%2d]: %10u\n", i, block[i]);
+		i++;
+	}
+	printf("\n");
+}
+
+void	print_w(uint32_t w[64])
+{
+	int i;
+
+	i = 0;
+	while (i < 64)
+	{
+		printf("w[%2d]: %12u\n", i, w[i]);
 		i++;
 	}
 	printf("\n");

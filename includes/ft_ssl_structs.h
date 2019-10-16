@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/05 16:36:42 by kmira             #+#    #+#             */
-/*   Updated: 2019/10/12 18:20:14 by kmira            ###   ########.fr       */
+/*   Updated: 2019/10/16 01:34:30 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,11 @@ typedef union	s_512_chunk
 	uint8_t		str[512];
 	u_int32_t	block[16];
 }				t_512_chunk;
+
+typedef union	u_converter
+{
+	u_int32_t	num;
+	char		args[4];
+}				t_conveter;
 
 #endif

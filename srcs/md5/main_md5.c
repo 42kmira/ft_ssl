@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/05 16:51:28 by kmira             #+#    #+#             */
-/*   Updated: 2019/10/15 02:46:14 by kmira            ###   ########.fr       */
+/*   Updated: 2019/10/16 01:34:48 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,13 +95,7 @@ static void	one_chunk(t_md5 *md5_info)
 	md5_info->state[D] = d + md5_info->state[D];
 }
 
-typedef union	u_converter
-{
-	u_int32_t	num;
-	char		args[4];
-}				t_conveter;
-
-void	fill_chunk(char *str, t_512_chunk *chunk, int final, int at, int *padded)
+static void	fill_chunk(char *str, t_512_chunk *chunk, int final, int at, int *padded)
 {
 	int			i;
 	int			j;
@@ -110,7 +104,6 @@ void	fill_chunk(char *str, t_512_chunk *chunk, int final, int at, int *padded)
 	t_conveter	transmutation_decive;
 
 	len = ft_strlen(str);
-	// printf("LEN: %d\n", len);
 	ft_bzero(chunk, 512);
 	i = 0;
 	stop = 16;
@@ -134,8 +127,6 @@ void	fill_chunk(char *str, t_512_chunk *chunk, int final, int at, int *padded)
 	}
 	if (final == 1)
 		chunk->block[14] = at * 8;
-	// printf("%d and %d\n", i, j);
-	// printf("%c and %d\n", str[i * 4 + j], *padded);
 	if (len < 64 && *padded == 0)
 	{
 		if (j == 4)
@@ -170,7 +161,7 @@ struct s_string	*crypto_algo_md5   (struct s_output_handler *output_handle, char
 	md5.digest->length = 32;
 
 	dest.string = malloc(sizeof(*dest.string) * (64 + 1));
-	dest.length = 512;
+	dest.length = 64;
 
 	output_handle->at = 0;
 	output_handle->args = args;
@@ -180,13 +171,11 @@ struct s_string	*crypto_algo_md5   (struct s_output_handler *output_handle, char
 	{
 		ft_bzero(&md5.chunk, sizeof(md5.chunk));
 		fill_chunk(dest.string, &md5.chunk, 0, output_handle->at, &padded);
-		// print_chunk(&md5.chunk);
 		one_chunk(&md5);
 		make_digest_md5(md5.state, md5.digest);
 		bytes_copied = request_chunk(output_handle, &dest);
 	}
 	fill_chunk(dest.string, &md5.chunk, 1, output_handle->at, &padded);
-	// print_chunk(&md5.chunk);
 	one_chunk(&md5);
 	make_digest_md5(md5.state, md5.digest);
 	output_handle->flags |= Q_FLAG;

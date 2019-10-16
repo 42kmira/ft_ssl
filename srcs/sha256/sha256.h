@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/08 17:32:55 by kmira             #+#    #+#             */
-/*   Updated: 2019/10/10 19:35:37 by kmira            ###   ########.fr       */
+/*   Updated: 2019/10/15 23:45:32 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,15 @@ uint32_t g_h[8] =
 	0x1f83d9ab,
 	0x5be0cd19
 };
+
+#define h0 0
+#define h1 1
+#define h2 2
+#define h3 3
+#define h4 4
+#define h5 5
+#define h6 6
+#define h7 7
 
 uint32_t g_k[64] =
 {
@@ -46,6 +55,7 @@ uint32_t g_k[64] =
 
 typedef struct	s_sha256
 {
+	uint32_t	state[8];
 	t_512_chunk	chunk;
 	t_string	*digest;
 }				t_sha256;
