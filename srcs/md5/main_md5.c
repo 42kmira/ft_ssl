@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/05 16:51:28 by kmira             #+#    #+#             */
-/*   Updated: 2019/10/13 20:06:30 by kmira            ###   ########.fr       */
+/*   Updated: 2019/10/15 02:46:14 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,22 +101,24 @@ typedef union	u_converter
 	char		args[4];
 }				t_conveter;
 
-void	fill_chunk(char *str, t_512_chunk *chunk, int final)
+void	fill_chunk(char *str, t_512_chunk *chunk, int final, int at, int *padded)
 {
-	int	i;
-	int	j;
-	int	len;
-	int	stop;
+	int			i;
+	int			j;
+	int			len;
+	int			stop;
 	t_conveter	transmutation_decive;
 
 	len = ft_strlen(str);
+	// printf("LEN: %d\n", len);
+	ft_bzero(chunk, 512);
 	i = 0;
 	stop = 16;
 	if (final == 1)
-		stop = 12;
+		stop = 13;
 	while (i < stop)
 	{
-		if ((i + 1) * 4 > len)
+		if ((i + 1) * 4 >= len)
 			break ;
 		transmutation_decive.num = 0;
 		ft_strncpy(transmutation_decive.args, &str[i * 4], 4);
@@ -125,71 +127,69 @@ void	fill_chunk(char *str, t_512_chunk *chunk, int final)
 	}
 	transmutation_decive.num = 0;
 	j = 0;
-	while (str[i * 4 + j] != '\0')
+	while (str[i * 4 + j] != '\0' && j < 4)
 	{
 		transmutation_decive.args[j] = str[i * 4 + j];
 		j++;
 	}
-	transmutation_decive.args[j] = 0b10000000;
+	if (final == 1)
+		chunk->block[14] = at * 8;
+	// printf("%d and %d\n", i, j);
+	// printf("%c and %d\n", str[i * 4 + j], *padded);
+	if (len < 64 && *padded == 0)
+	{
+		if (j == 4)
+		{
+			chunk->block[i] = transmutation_decive.num;
+			transmutation_decive.num = 0;
+			transmutation_decive.args[0] = 0b10000000;
+			i++;
+		}
+		else
+			transmutation_decive.args[j] = 0b10000000;
+		*padded = 1;
+	}
 	chunk->block[i] = transmutation_decive.num;
-	chunk->block[14] = len * 8;
-}
-
-int		request_chunk(t_output_handler *output_handler, t_string *dest)
-{
-	int		result;
-	int		bytes;
-	int		fd;
-
-	result = 0;
-	bytes = 64;
-	fd = output_handler->fd;
-	// if (output_handler->flags & F_FLAG)
-	// 	result = request_from_file(fd, dest, bytes);
-	// else if (output_handler->flags & P_FLAG)
-	// 	result = request_from_file(0, dest, bytes);
-	// else if (output_handler->flags & S_FLAG)
-	// 	result = request_from_string(dest, bytes);
-	// else
-	// 	ft_puterror("This we cannot read from");
-	request_from_string(dest, bytes, output_handler);
-	return (result);
 }
 
 struct s_string	*crypto_algo_md5   (struct s_output_handler *output_handle, char *args)
 {
 	t_md5		md5;
 	t_string	dest;
+	int			padded;
+	size_t		bytes_copied;
 
+	padded = 0;
 	md5.state[A] = 0x67452301;
 	md5.state[B] = 0xefcdab89;
 	md5.state[C] = 0x98badcfe;
 	md5.state[D] = 0x10325476;
 
-	// printf("Doing md5 on input %s\n", args);
 	md5.digest = malloc(sizeof(*md5.digest) * (1));
 	md5.digest->string = malloc(sizeof(*md5.digest) * (32));
 	md5.digest->length = 32;
 
-	dest.string = malloc(sizeof(*dest.string) * (512));
-	dest.length = 0;
+	dest.string = malloc(sizeof(*dest.string) * (64 + 1));
+	dest.length = 512;
 
 	output_handle->at = 0;
 	output_handle->args = args;
 
-	// while (request_chunk(output_handle, dest) != 0)
-	// {
-	// 	ft_bzero(&md5.chunk, sizeof(md5.chunk));
-	// 	fill_chunk(args, &md5.chunk, 0);
-	// 	print_chunk(&md5.chunk);
-	// 	one_chunk(&md5);
-	// }
-	fill_chunk(args, &md5.chunk, 1);
+	bytes_copied = request_chunk(output_handle, &dest);
+	while (bytes_copied >= 64 - 8)
+	{
+		ft_bzero(&md5.chunk, sizeof(md5.chunk));
+		fill_chunk(dest.string, &md5.chunk, 0, output_handle->at, &padded);
+		// print_chunk(&md5.chunk);
+		one_chunk(&md5);
+		make_digest_md5(md5.state, md5.digest);
+		bytes_copied = request_chunk(output_handle, &dest);
+	}
+	fill_chunk(dest.string, &md5.chunk, 1, output_handle->at, &padded);
+	// print_chunk(&md5.chunk);
 	one_chunk(&md5);
 	make_digest_md5(md5.state, md5.digest);
-
-	(void)output_handle;
-	(void)args;
+	output_handle->flags |= Q_FLAG;
 	return (md5.digest);
 }
 

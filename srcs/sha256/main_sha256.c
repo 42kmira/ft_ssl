@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 20:25:06 by kmira             #+#    #+#             */
-/*   Updated: 2019/10/10 20:01:02 by kmira            ###   ########.fr       */
+/*   Updated: 2019/10/15 18:36:56 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,6 @@
 
 #define RIGHT_BIT_ROTATE32(val, shift) ((val >> shift) | (val << (32 - shift)))
 #define RIGHT_BIT_SHIFT32(val, shift) ((val >> shift))
-
-u_int32_t	convert_endian_32bits(u_int32_t val)
-{
-	u_int32_t x;
-
-	x = ((0XFF00FF00 & val) >> 8)  | ((0X00FF00FF & val) << 8);
-	x = ((0XFFFF0000 & x)   >> 16) | ((0X0000FFFF & x)   << 16);
-	return (x);
-}
-
-// 1010 2010 | 3010 4010 | 5010 6010 | 7010 8010
-// 3010 4010 | 1010 2010 | 7010 8010 | 5010 6010
-// 7010 8010 | 5010 6010 | 3010 4010 | 1010 2010
 
 static void	make_digest_sha256(uint32_t block[16], t_string *dest)
 {
@@ -58,6 +45,19 @@ static void	make_digest_sha256(uint32_t block[16], t_string *dest)
 	ft_strnrev(dest->string, dest->length);
 }
 
+u_int32_t	convert_endian_32bits(u_int32_t val)
+{
+	u_int32_t x;
+
+	x = ((0XFF00FF00 & val) >> 8)  | ((0X00FF00FF & val) << 8);
+	x = ((0XFFFF0000 & x)   >> 16) | ((0X0000FFFF & x)   << 16);
+	return (x);
+}
+
+// 1010 2010 | 3010 4010 | 5010 6010 | 7010 8010
+// 3010 4010 | 1010 2010 | 7010 8010 | 5010 6010
+// 7010 8010 | 5010 6010 | 3010 4010 | 1010 2010
+
 static void	one_chunk(t_sha256 *sha256_info)
 {
 	int	i;
@@ -65,12 +65,12 @@ static void	one_chunk(t_sha256 *sha256_info)
 	u_int32_t	s0;
 	u_int32_t	s1;
 
-	// i = 0;
-	// while (i < 16)
-	// {
-	// 	sha256_info->chunk.block[i] = convert_endian_32bits(sha256_info->chunk.block[i]);
-	// 	i++;
-	// }
+	i = 0;
+	while (i < 16)
+	{
+		sha256_info->chunk.block[i] = convert_endian_32bits(sha256_info->chunk.block[i]);
+		i++;
+	}
 
 	i = 0;
 	while (i < 16)
@@ -146,11 +146,14 @@ struct s_string *crypto_algo_sha256(struct s_output_handler *output_handle, char
 	t_sha256	sha256;
 	t_512_chunk	chunk;
 	u_int32_t	n;
+	size_t		bytes_copied;
+	int			padded;
 
+	padded = 0;
 	n = (u_int32_t)&args[0];
 
 	chunk.block[0]  = 1953719636;
-	chunk.block[1]  = 2154262121;
+	chunk.block[1]  = 128;
 	chunk.block[2]  = 0;
 	chunk.block[3]  = 0;
 	chunk.block[4]  = 0;
@@ -163,15 +166,25 @@ struct s_string *crypto_algo_sha256(struct s_output_handler *output_handle, char
 	chunk.block[11] = 0;
 	chunk.block[12] = 0;
 	chunk.block[13] = 0;
-	chunk.block[14] = 56;
-	chunk.block[15] = 0;
+	chunk.block[14] = 0;
+	chunk.block[15] = 536870912;
 
 	printf("Doing sha256 on input %s\n", args);
-
 	sha256.digest = malloc(sizeof(*sha256.digest) * (1));
 	sha256.digest->string = malloc(sizeof(*sha256.digest) * (64));
 	sha256.digest->length = 64;
 	sha256.chunk = chunk;
+
+	bytes_copied = 0;
+
+	// while (bytes_copied >= 64 - 8)
+	// {
+	// 	ft_bzero(&sha256, sizeof(sha256.chunk));
+	// 	//fill_chunk
+	// 	one_chunk(&sha256);
+	// 	make_digest_sha256(&sha256.digest, );
+	// }
+
 	one_chunk(&sha256);
 	make_digest_sha256(sha256.chunk.block, sha256.digest);
 

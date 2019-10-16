@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 00:44:48 by kmira             #+#    #+#             */
-/*   Updated: 2019/10/10 03:19:32 by kmira            ###   ########.fr       */
+/*   Updated: 2019/10/13 21:01:36 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,4 +27,17 @@ void	ft_strnrev(char *str, size_t n)
 		n--;
 		i++;
 	}
+}
+
+size_t		ft_strncpy_i(char *dst, const char *src, size_t len)
+{
+	size_t		i;
+
+	i = 0;
+	while (i < len && src[i] != '\0')
+	{
+		dst[i] = src[i];
+		i++;
+	}
+	return (i);
 }
