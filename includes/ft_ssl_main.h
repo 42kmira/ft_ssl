@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/05 16:29:26 by kmira             #+#    #+#             */
-/*   Updated: 2019/10/16 01:17:37 by kmira            ###   ########.fr       */
+/*   Updated: 2019/10/16 03:25:30 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,13 @@
 # include "color.h"
 # include "libft.h"
 # include "ft_ssl_structs.h"
+
+#include <fcntl.h>
+#include <sys/types.h>
+#include <sys/uio.h>
+#include <unistd.h>
+
+#include <errno.h>
 
 /*
 ** -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-
@@ -76,6 +83,7 @@ void			get_command(char *key, t_string *(**result)(t_output_handler *, char *));
 void			ft_strnrev(char *str, size_t n);
 size_t			ft_strncpy_i(char *dst, const char *src, size_t len);
 
-void			flag_loop(t_output_handler *output_handler, char **args, t_string *(*crypto_function)(t_output_handler *, char *));
+int				flag_loop(t_output_handler *output_handler, char **args, t_string *(*crypto_function)(t_output_handler *, char *));
+void			file_loop(t_output_handler *output_handler, char **args, t_string *(*crypto_function)(t_output_handler *, char *));
 
 #endif

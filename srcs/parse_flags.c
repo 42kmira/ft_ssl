@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/05 17:03:03 by kmira             #+#    #+#             */
-/*   Updated: 2019/10/12 04:19:55 by kmira            ###   ########.fr       */
+/*   Updated: 2019/10/16 20:54:53 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ int		setup_next_flag_read(t_output_handler *output_handler, int *i, int *j, char
 	if (output_handler->flags & P_FLAG)
 	{
 		output_handler->flags = output_handler->flags & ~(P_FLAG);
+		output_handler->fd = -1;
 		*j = *j + 1;
 	}
 	else
@@ -83,6 +84,7 @@ int		setup_next_flag_read(t_output_handler *output_handler, int *i, int *j, char
 		else
 			return (TRY_FILE_LOOP);
 	}
+	output_handler->at = 0;
 	return (TRY_NEXT_ARGUEMENT);
 }
 
@@ -105,6 +107,8 @@ void		ready_input(char **args, int *i, int *j, t_output_handler *output_handler)
 		if (args[*i] == NULL)
 			ft_puterror("We require some sort of arguement\n");
 	}
+	if (output_handler->flags & P_FLAG)
+		output_handler->fd = 0;
 }
 
 /*
@@ -118,7 +122,7 @@ void	override_flags(t_output_handler *output_handler)
 		output_handler->flags &= ~(R_FLAG);
 }
 
-void		flag_loop(t_output_handler *output_handler, char **args, t_string *(*crypto_function)(t_output_handler *, char *))
+int		flag_loop(t_output_handler *output_handler, char **args, t_string *(*crypto_function)(t_output_handler *, char *))
 {
 	int			i;
 	int			j;
@@ -128,7 +132,7 @@ void		flag_loop(t_output_handler *output_handler, char **args, t_string *(*crypt
 	i = 0;
 	j = 0;
 	if (args[i][j] != '-')
-		return ;
+		return (i);
 	else
 		j = j + 1;
 	while (args[i] != NULL)
@@ -142,16 +146,37 @@ void		flag_loop(t_output_handler *output_handler, char **args, t_string *(*crypt
 			print_output(output_handler, digest, &args[i][j]);
 		}
 		else if (flag_result == TRY_FILE_LOOP)
+		{
+			i++;
 			break ; //Maybe return, don't know right now
+		}
 		flag_result = setup_next_flag_read(output_handler, &i, &j, args);
 		if (flag_result == TRY_FILE_LOOP)
+		{
 			break ;
+		}
+	}
+	return (i);
+}
+
+void		file_loop(t_output_handler *output_handler, char **args, t_string *(*crypto_function)(t_output_handler *, char *))
+{
+	int	i;
+	t_string	*digest;
+
+	i = 0;
+	while (args[i] != NULL)
+	{
+		output_handler->flags |= F_FLAG;
+		output_handler->fd = open(args[i], O_RDONLY);
+		if (output_handler->fd == -1)
+			printf("md5: Test0: No such file or directory\n");
+		else
+		{
+			digest = crypto_function(output_handler, args[i]);
+			print_output(output_handler, digest, args[i]);
+		}
+		output_handler->flags &= (~F_FLAG);
+		i++;
 	}
 }
-
-void		file_loop(t_output_handler *output_handler, char **args)
-{
-	(void)output_handler;
-	(void)args;
-}
-

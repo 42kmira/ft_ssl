@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 20:25:06 by kmira             #+#    #+#             */
-/*   Updated: 2019/10/16 01:36:53 by kmira            ###   ########.fr       */
+/*   Updated: 2019/10/16 20:27:56 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,6 +216,5 @@ struct s_string *crypto_algo_sha256(struct s_output_handler *output_handle, char
 	fill_chunk(dest.string, &sha256.chunk, 1, output_handle->at, &padded);
 	one_chunk(&sha256);
 	make_digest_sha256(sha256.state, sha256.digest);
-	output_handle->flags |= Q_FLAG;
 	return (sha256.digest);
 }

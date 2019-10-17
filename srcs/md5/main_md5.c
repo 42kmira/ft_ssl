@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/05 16:51:28 by kmira             #+#    #+#             */
-/*   Updated: 2019/10/16 01:34:48 by kmira            ###   ########.fr       */
+/*   Updated: 2019/10/16 20:15:11 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,10 +175,10 @@ struct s_string	*crypto_algo_md5   (struct s_output_handler *output_handle, char
 		make_digest_md5(md5.state, md5.digest);
 		bytes_copied = request_chunk(output_handle, &dest);
 	}
+	ft_bzero(&md5.chunk, sizeof(md5.chunk));
 	fill_chunk(dest.string, &md5.chunk, 1, output_handle->at, &padded);
 	one_chunk(&md5);
 	make_digest_md5(md5.state, md5.digest);
-	output_handle->flags |= Q_FLAG;
 	return (md5.digest);
 }
 

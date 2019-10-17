@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/05 16:28:18 by kmira             #+#    #+#             */
-/*   Updated: 2019/10/13 20:04:26 by kmira            ###   ########.fr       */
+/*   Updated: 2019/10/16 21:27:08 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,10 @@ int		main(int aa, char **args)
 {
 	t_output_handler	output_handler;
 	t_string			*(*crypto_function)(t_output_handler *, char *);
+	int					i;
+	t_string			*digest;
 
+	i = 0;
 	if (aa <= 1)
 		printf("USAGE ERROR\n");
 	else
@@ -26,15 +29,14 @@ int		main(int aa, char **args)
 		output_handler.command = args[1];
 		if (aa == CMD_ONLY)
 		{
-			output_handler.flags |= P_FLAG;
-			printf("Running function on stdin\n");
-			crypto_function(&output_handler, STDIN_OPTION);
+			output_handler.flags |= P_FLAG | O_FLAG;
+			digest = crypto_function(&output_handler, STDIN_OPTION);
+			print_output(&output_handler,  digest, args[0]);
 		}
 		else
 		{
-			// printf("Do Flags\n");
-			flag_loop(&output_handler, &args[FLAG_START], crypto_function);
-			// printf("Then files if there are any\n");
+			i = flag_loop(&output_handler, &args[FLAG_START], crypto_function) + FLAG_START;
+			file_loop(&output_handler, &args[i], crypto_function);
 		}
 	}
 	return (0);

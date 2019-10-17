@@ -6,7 +6,7 @@
 #    By: kmira <kmira@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/29 20:34:09 by kmira             #+#    #+#              #
-#    Updated: 2019/10/13 20:14:26 by kmira            ###   ########.fr        #
+#    Updated: 2019/10/16 02:48:59 by kmira            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,9 +27,9 @@ SHA256_SRCS = \
 SRCS = \
 		debug \
 		function_dispatch \
+		io_input_reading \
+		io_output \
 		main \
-		output \
-		input_reading \
 		parse_flags \
 		utils
 
