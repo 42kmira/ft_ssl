@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/05 16:28:18 by kmira             #+#    #+#             */
-/*   Updated: 2019/10/16 21:47:03 by kmira            ###   ########.fr       */
+/*   Updated: 2019/10/17 09:46:37 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 int		main(int aa, char **args)
 {
 	t_output	output_handler;
-	t_string			*(*crypto_function)(t_output *, char *);
-	int					i;
-	t_string			*digest;
+	t_string	*(*crypto_function)(t_output *, char *);
+	int			i;
+	t_string	*digest;
 
 	i = 0;
 	if (aa <= 1)
@@ -31,7 +31,7 @@ int		main(int aa, char **args)
 		{
 			output_handler.flags |= P_FLAG | O_FLAG;
 			digest = crypto_function(&output_handler, STDIN_OPTION);
-			print_output(&output_handler,  digest, args[0]);
+			print_output(&output_handler, digest, args[0]);
 		}
 		else
 		{

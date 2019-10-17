@@ -6,12 +6,12 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/05 16:51:28 by kmira             #+#    #+#             */
-/*   Updated: 2019/10/16 21:49:44 by kmira            ###   ########.fr       */
+/*   Updated: 2019/10/17 10:05:13 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl_main.h"
-#include "md5.h"
+#include "main_md5.h"
 
 #define MD5_F(X, Y, Z) ((X & Y) | ((~X) & Z))
 #define MD5_G(X, Y, Z) ((X & Z) | (Y & (~Z)))

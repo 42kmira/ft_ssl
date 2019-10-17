@@ -1,18 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sha256.h                                           :+:      :+:    :+:   */
+/*   main_sha256.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/08 17:32:55 by kmira             #+#    #+#             */
-/*   Updated: 2019/10/15 23:45:32 by kmira            ###   ########.fr       */
+/*   Updated: 2019/10/17 10:33:05 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
+#ifndef MAIN_SHA256_H
+# define MAIN_SHA256_H
 
-uint32_t g_h[8] =
+# include <unistd.h>
+
+uint32_t		g_h[8] =
 {
 	0x6a09e667,
 	0xbb67ae85,
@@ -24,16 +27,23 @@ uint32_t g_h[8] =
 	0x5be0cd19
 };
 
-#define h0 0
-#define h1 1
-#define h2 2
-#define h3 3
-#define h4 4
-#define h5 5
-#define h6 6
-#define h7 7
+# define H0 0
+# define H1 1
+# define H2 2
+# define H3 3
+# define H4 4
+# define H5 5
+# define H6 6
+# define H7 7
 
-uint32_t g_k[64] =
+# define S1 0
+# define S0 1
+# define CH 2
+# define MAJ 3
+# define TEMP1 4
+# define TEMP2 5
+
+uint32_t		g_k[64] =
 {
 	0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5,
 	0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5,
@@ -59,3 +69,5 @@ typedef struct	s_sha256
 	t_512_chunk	chunk;
 	t_string	*digest;
 }				t_sha256;
+
+#endif
