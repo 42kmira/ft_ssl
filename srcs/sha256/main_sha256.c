@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 20:25:06 by kmira             #+#    #+#             */
-/*   Updated: 2019/10/16 20:27:56 by kmira            ###   ########.fr       */
+/*   Updated: 2019/10/16 21:49:44 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,7 +179,7 @@ static void	fill_chunk(char *str, t_512_chunk *chunk, int final, int at, int *pa
 	chunk->block[i] = transmutation_decive.num;
 }
 
-struct s_string *crypto_algo_sha256(struct s_output_handler *output_handle, char *args)
+struct s_string *crypto_algo_sha256(struct s_output *output_handle, char *args)
 {
 	t_sha256	sha256;
 	t_string	dest;

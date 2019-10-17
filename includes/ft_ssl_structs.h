@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/05 16:36:42 by kmira             #+#    #+#             */
-/*   Updated: 2019/10/16 01:34:30 by kmira            ###   ########.fr       */
+/*   Updated: 2019/10/16 21:49:44 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ typedef struct	s_string
 	char		free;
 }				t_string;
 
-typedef struct	s_output_handler
+typedef struct	s_output
 {
 	t_string		*output;
 	char			*command;
@@ -32,7 +32,7 @@ typedef struct	s_output_handler
 	int				fd;
 	char			*args;
 	int				at;
-}				t_output_handler;
+}				t_output;
 
 typedef union	s_512_chunk
 {

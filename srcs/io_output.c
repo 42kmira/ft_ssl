@@ -6,15 +6,18 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 22:14:10 by kmira             #+#    #+#             */
-/*   Updated: 2019/10/16 21:34:21 by kmira            ###   ########.fr       */
+/*   Updated: 2019/10/16 21:47:03 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl_main.h"
 
-void	print_output(t_output_handler *output_handler, t_string *digest, char *args)
+void	print_output
+	(t_output *output_handler, t_string *digest, char *args)
 {
-	if ((output_handler->flags & Q_FLAG) == 0 && (output_handler->flags & R_FLAG) == 0 && (output_handler->flags & P_FLAG) == 0)
+	if ((output_handler->flags & Q_FLAG) == 0
+	&& (output_handler->flags & R_FLAG) == 0
+	&& (output_handler->flags & P_FLAG) == 0)
 	{
 		if (ft_strequ(output_handler->command, "md5"))
 			write(1, "MD5 (\"", 7);

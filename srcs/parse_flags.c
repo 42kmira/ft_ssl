@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/05 17:03:03 by kmira             #+#    #+#             */
-/*   Updated: 2019/10/16 20:54:53 by kmira            ###   ########.fr       */
+/*   Updated: 2019/10/16 21:47:03 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,13 @@ int		fetch_flags(enum e_flags *result, char **args, int *i, int *j)
 
 /*
 ** This cleans up the flags and gets things ready for the next flag read.
-** The logic here is particular to the flags that affect something with arguements
-** namely the -p and -s flags.
+** The logic here is particular to the flags that affect something with
+** arguements namely the -p and -s flags.
 ** This helps keep things seperate.
 */
 
-int		setup_next_flag_read(t_output_handler *output_handler, int *i, int *j, char **args)
+int		setup_next_flag_read
+	(t_output *output_handler, int *i, int *j, char **args)
 {
 	if (output_handler->flags & S_FLAG)
 	{
@@ -93,7 +94,8 @@ int		setup_next_flag_read(t_output_handler *output_handler, int *i, int *j, char
 ** This gets args in the right position for the crypto function
 */
 
-void		ready_input(char **args, int *i, int *j, t_output_handler *output_handler)
+void		ready_input
+	(char **args, int *i, int *j, t_output *output_handler)
 {
 	if (output_handler->flags & S_FLAG)
 	{
@@ -116,13 +118,15 @@ void		ready_input(char **args, int *i, int *j, t_output_handler *output_handler)
 ** the file parsing.
 */
 
-void	override_flags(t_output_handler *output_handler)
+void	override_flags(t_output *output_handler)
 {
 	if (output_handler->flags & (Q_FLAG))
 		output_handler->flags &= ~(R_FLAG);
 }
 
-int		flag_loop(t_output_handler *output_handler, char **args, t_string *(*crypto_function)(t_output_handler *, char *))
+int		flag_loop
+	(t_output *output_handler, char **args,
+	t_string *(*crypto_function)(t_output *, char *))
 {
 	int			i;
 	int			j;
@@ -148,20 +152,20 @@ int		flag_loop(t_output_handler *output_handler, char **args, t_string *(*crypto
 		else if (flag_result == TRY_FILE_LOOP)
 		{
 			i++;
-			break ; //Maybe return, don't know right now
+			break ;
 		}
 		flag_result = setup_next_flag_read(output_handler, &i, &j, args);
 		if (flag_result == TRY_FILE_LOOP)
-		{
 			break ;
-		}
 	}
 	return (i);
 }
 
-void		file_loop(t_output_handler *output_handler, char **args, t_string *(*crypto_function)(t_output_handler *, char *))
+void		file_loop
+	(t_output *output_handler, char **args,
+	t_string *(*crypto_function)(t_output *, char *))
 {
-	int	i;
+	int			i;
 	t_string	*digest;
 
 	i = 0;

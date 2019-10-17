@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/05 16:51:28 by kmira             #+#    #+#             */
-/*   Updated: 2019/10/16 20:15:11 by kmira            ###   ########.fr       */
+/*   Updated: 2019/10/16 21:49:44 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,8 @@ static void	one_chunk(t_md5 *md5_info)
 	md5_info->state[D] = d + md5_info->state[D];
 }
 
-static void	fill_chunk(char *str, t_512_chunk *chunk, int final, int at, int *padded)
+static void	fill_chunk
+	(char *str, t_512_chunk *chunk, int final, int at, int *padded)
 {
 	int			i;
 	int			j;
@@ -143,7 +144,7 @@ static void	fill_chunk(char *str, t_512_chunk *chunk, int final, int at, int *pa
 	chunk->block[i] = transmutation_decive.num;
 }
 
-struct s_string	*crypto_algo_md5   (struct s_output_handler *output_handle, char *args)
+struct s_string	*crypto_algo_md5   (struct s_output *output_handle, char *args)
 {
 	t_md5		md5;
 	t_string	dest;

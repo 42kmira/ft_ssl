@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/05 16:30:10 by kmira             #+#    #+#             */
-/*   Updated: 2019/10/16 01:27:18 by kmira            ###   ########.fr       */
+/*   Updated: 2019/10/16 21:48:41 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 ** DEBUG
 */
 
-void	print_chunk(uint32_t	block[16]);
+void	print_chunk(uint32_t block[16]);
 void	print_w(uint32_t w[64]);
 
 #endif

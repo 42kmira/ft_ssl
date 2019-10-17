@@ -6,15 +6,15 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/13 20:06:07 by kmira             #+#    #+#             */
-/*   Updated: 2019/10/16 21:27:35 by kmira            ###   ########.fr       */
+/*   Updated: 2019/10/16 21:48:21 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl_main.h"
 
-size_t	request_from_string(t_string *dest, int bytes, t_output_handler *output_handler)
+size_t	request_from_string(t_string *dest, int bytes, t_output *output_handler)
 {
-	char *src;
+	char	*src;
 	size_t	amount_copied;
 
 	src = &output_handler->args[output_handler->at];
@@ -24,7 +24,7 @@ size_t	request_from_string(t_string *dest, int bytes, t_output_handler *output_h
 	return (amount_copied);
 }
 
-size_t	request_from_file(t_string *dest, int bytes, t_output_handler *output_handler)
+size_t	request_from_file(t_string *dest, int bytes, t_output *output_handler)
 {
 	int	result;
 	int	fd;
@@ -39,7 +39,7 @@ size_t	request_from_file(t_string *dest, int bytes, t_output_handler *output_han
 	return (result);
 }
 
-int		request_chunk(t_output_handler *output_handler, t_string *dest)
+int		request_chunk(t_output *output_handler, t_string *dest)
 {
 	int		result;
 	int		bytes;
@@ -61,4 +61,3 @@ int		request_chunk(t_output_handler *output_handler, t_string *dest)
 		ft_puterror("This we cannot read from");
 	return (result);
 }
-

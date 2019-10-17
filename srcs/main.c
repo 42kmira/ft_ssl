@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/05 16:28:18 by kmira             #+#    #+#             */
-/*   Updated: 2019/10/16 21:27:08 by kmira            ###   ########.fr       */
+/*   Updated: 2019/10/16 21:47:03 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int		main(int aa, char **args)
 {
-	t_output_handler	output_handler;
-	t_string			*(*crypto_function)(t_output_handler *, char *);
+	t_output	output_handler;
+	t_string			*(*crypto_function)(t_output *, char *);
 	int					i;
 	t_string			*digest;
 
