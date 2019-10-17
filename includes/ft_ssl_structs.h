@@ -6,14 +6,14 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/05 16:36:42 by kmira             #+#    #+#             */
-/*   Updated: 2019/10/16 21:49:44 by kmira            ###   ########.fr       */
+/*   Updated: 2019/10/16 21:56:49 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_SSL_STRUCTS_H
 # define FT_SSL_STRUCTS_H
 
-#include "ft_ssl_config.h"
+# include "ft_ssl_config.h"
 
 typedef struct	s_string
 {
@@ -26,15 +26,13 @@ typedef struct	s_output
 {
 	t_string		*output;
 	char			*command;
-
 	enum e_flags	flags;
-
 	int				fd;
 	char			*args;
 	int				at;
 }				t_output;
 
-typedef union	s_512_chunk
+typedef union	u_512_chunk
 {
 	uint8_t		str[512];
 	u_int32_t	block[16];

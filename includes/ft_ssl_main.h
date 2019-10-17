@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/05 16:29:26 by kmira             #+#    #+#             */
-/*   Updated: 2019/10/16 21:49:44 by kmira            ###   ########.fr       */
+/*   Updated: 2019/10/16 21:59:21 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@
 # include "libft.h"
 # include "ft_ssl_structs.h"
 
-#include <fcntl.h>
-#include <sys/types.h>
-#include <sys/uio.h>
-#include <unistd.h>
+# include <fcntl.h>
+# include <sys/types.h>
+# include <sys/uio.h>
+# include <unistd.h>
 
-#include <errno.h>
+# include <errno.h>
 
 /*
 ** -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-
@@ -46,8 +46,9 @@
 ** File: input_reading.c
 */
 
-int				request_chunk(t_output *output_handler, t_string *dest);
-size_t			request_from_string(t_string *dest, int bytes, t_output *output_handler);
+int			request_chunk(t_output *output_handler, t_string *dest);
+size_t		request_from_string
+			(t_string *dest, int bytes, t_output *output_handler);
 
 /*
 ** -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-
@@ -55,8 +56,8 @@ size_t			request_from_string(t_string *dest, int bytes, t_output *output_handler
 ** public handles for the cryto algoritms.
 */
 
-struct s_string *crypto_algo_md5   (struct s_output *output_handle, char *args);
-struct s_string *crypto_algo_sha256(struct s_output *output_handle, char *args);
+t_string	*crypto_algo_md5(struct s_output *output_handle, char *args);
+t_string	*crypto_algo_sha256(struct s_output *output_handle, char *args);
 
 /*
 ** -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-
@@ -64,7 +65,8 @@ struct s_string *crypto_algo_sha256(struct s_output *output_handle, char *args);
 ** Formats the output of the message.
 */
 
-void			print_output(t_output *output_handler, t_string *digest, char *args);
+void		print_output
+	(t_output *output_handler, t_string *digest, char *args);
 
 /*
 ** -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-
@@ -72,7 +74,7 @@ void			print_output(t_output *output_handler, t_string *digest, char *args);
 ** Dispatch the crypto algorithm.
 */
 
-void			get_command(char *key, t_string *(**result)(t_output *, char *));
+void		get_command(char *key, t_string *(**result)(t_output *, char *));
 
 /*
 ** -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-
@@ -80,10 +82,12 @@ void			get_command(char *key, t_string *(**result)(t_output *, char *));
 ** Utility function providing misc functionality and readibility.
 */
 
-void			ft_strnrev(char *str, size_t n);
-size_t			ft_strncpy_i(char *dst, const char *src, size_t len);
+void		ft_strnrev(char *str, size_t n);
+size_t		ft_strncpy_i(char *dst, const char *src, size_t len);
 
-int				flag_loop(t_output *output_handler, char **args, t_string *(*crypto_function)(t_output *, char *));
-void			file_loop(t_output *output_handler, char **args, t_string *(*crypto_function)(t_output *, char *));
+int			flag_loop(t_output *output_handler, char **args,
+			t_string *(*crypto_fun)(t_output *, char *));
+void		file_loop(t_output *output_handler, char **args,
+			t_string *(*crypto_fun)(t_output *, char *));
 
 #endif
