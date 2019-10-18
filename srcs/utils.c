@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 00:44:48 by kmira             #+#    #+#             */
-/*   Updated: 2019/10/17 18:12:32 by kmira            ###   ########.fr       */
+/*   Updated: 2019/10/17 21:06:12 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ size_t		ft_strncpy_i(char *dst, const char *src, size_t len)
 	return (i);
 }
 
-void	fill_chunk(char *str, t_512_chunk *chunk, int final, int *padded)
+void		fill_chunk(char *str, t_512_chunk *chunk, int final, int *padded)
 {
 	int			i;
 	int			j;

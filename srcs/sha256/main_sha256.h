@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/08 17:32:55 by kmira             #+#    #+#             */
-/*   Updated: 2019/10/17 18:21:16 by kmira            ###   ########.fr       */
+/*   Updated: 2019/10/17 21:06:39 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,15 +63,15 @@ static uint32_t		g_k[64] =
 	0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2
 };
 
-typedef struct	s_sha256
+typedef struct		s_sha256
 {
-	uint32_t	state[8];
-	t_512_chunk	chunk;
-	t_string	*digest;
-	uint8_t		padded;
-}				t_sha256;
+	uint32_t		state[8];
+	t_512_chunk		chunk;
+	t_string		*digest;
+	uint8_t			padded;
+}					t_sha256;
 
-void	initialize_sha256(t_sha256 *sha256_info);
-void	free_sha256(t_sha256 *sha256_info);
+void				initialize_sha256(t_sha256 *sha256_info);
+void				free_sha256(t_sha256 *sha256_info);
 
 #endif
