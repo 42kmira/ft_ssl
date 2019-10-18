@@ -1,19 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main_sha256.h                                      :+:      :+:    :+:   */
+/*   main_sha224.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/08 17:32:55 by kmira             #+#    #+#             */
-/*   Updated: 2019/10/18 04:14:00 by kmira            ###   ########.fr       */
+/*   Updated: 2019/10/18 04:07:31 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAIN_SHA256_H
-# define MAIN_SHA256_H
+#ifndef MAIN_SHA224_H
+# define MAIN_SHA224_H
 
 # include <unistd.h>
+# include "ft_ssl_main.h"
+
+static uint32_t		g_h[8] =
+{
+	0xc1059ed8,
+	0x367cd507,
+	0x3070dd17,
+	0xf70e5939,
+	0xffc00b31,
+	0x68581511,
+	0x64f98fa7,
+	0xbefa4fa4
+};
 
 # define H0 0
 # define H1 1
@@ -51,15 +64,15 @@ static uint32_t		g_k[64] =
 	0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2
 };
 
-typedef struct		s_sha256
+typedef struct		s_sha224
 {
 	uint32_t		state[8];
 	t_512_chunk		chunk;
 	t_string		*digest;
 	uint8_t			padded;
-}					t_sha256;
+}					t_sha224;
 
-void				initialize_sha256(t_sha256 *sha256_info);
-void				free_sha256(t_sha256 *sha256_info);
+void				initialize_sha224(t_sha224 *sha224_info);
+void				free_sha224(t_sha224 *sha224_info);
 
 #endif

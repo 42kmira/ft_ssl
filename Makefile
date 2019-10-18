@@ -6,7 +6,7 @@
 #    By: kmira <kmira@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/29 20:34:09 by kmira             #+#    #+#              #
-#    Updated: 2019/10/17 21:50:08 by kmira            ###   ########.fr        #
+#    Updated: 2019/10/18 04:09:10 by kmira            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,10 @@ SHA256_SRCS = \
 	main_sha256 \
 	sha256_utils
 
+SHA224_SRCS = \
+	main_sha224 \
+	sha224_utils
+
 SRCS = \
 		debug \
 		function_dispatch \
@@ -39,6 +43,7 @@ SRCS = \
 C_FILES = \
 	$(addprefix srcs/md5/, $(addsuffix .c, $(MD5_SRCS))) \
 	$(addprefix srcs/sha256/, $(addsuffix .c, $(SHA256_SRCS))) \
+	$(addprefix srcs/sha224/, $(addsuffix .c, $(SHA224_SRCS))) \
 	$(addprefix srcs/, $(addsuffix .c, $(SRCS)))
 
 OBJS = $(addsuffix .o, $(SRCS))

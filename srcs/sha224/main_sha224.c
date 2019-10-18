@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main_sha256.c                                      :+:      :+:    :+:   */
+/*   main_sha224.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 20:25:06 by kmira             #+#    #+#             */
-/*   Updated: 2019/10/18 04:19:05 by kmira            ###   ########.fr       */
+/*   Updated: 2019/10/18 04:19:41 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl_main.h"
-#include "main_sha256.h"
+#include "main_sha224.h"
 
 #define R_BIT_ROT32(val, shift) ((val >> shift) | (val << (32 - shift)))
 #define RIGHT_BIT_SHIFT32(val, shift) ((val >> shift))
 
-static void	make_digest_sha256(uint32_t block[16], t_string *dest)
+static void	make_digest_sha224(uint32_t block[16], t_string *dest)
 {
 	int			i;
 	u_int32_t	num;
@@ -92,7 +92,7 @@ static void	extend_function(uint32_t *w)
 	}
 }
 
-static void	one_chunk(t_sha256 *sha256_info)
+static void	one_chunk(t_sha224 *sha224_info)
 {
 	int			i;
 	uint32_t	w[64];
@@ -102,44 +102,45 @@ static void	one_chunk(t_sha256 *sha256_info)
 	ft_bzero(&w, sizeof(w));
 	while (++i < 16)
 	{
-		sha256_info->chunk.block[i] =
-		convert_endian_32bits(sha256_info->chunk.block[i]);
-		w[i] = sha256_info->chunk.block[i];
+		sha224_info->chunk.block[i] =
+		convert_endian_32bits(sha224_info->chunk.block[i]);
+		w[i] = sha224_info->chunk.block[i];
 	}
 	extend_function(w);
 	// print_w(w);
 	i = -1;
 	while (++i < 8)
-		state[i] = sha256_info->state[i];
+		state[i] = sha224_info->state[i];
 	compression_function(state, w);
 	i = -1;
 	while (++i < 8)
-		sha256_info->state[i] = state[i] + sha256_info->state[i];
+		sha224_info->state[i] = state[i] + sha224_info->state[i];
 }
 
-t_string	*crypto_algo_sha256(t_output *output_handle, char *args)
+t_string	*crypto_algo_sha224(t_output *output_handle, char *args)
 {
-	t_sha256	sha256;
+	t_sha224	sha224;
 	int			padded;
 	size_t		bytes_copied;
 
 	padded = 0;
-	initialize_sha256(&sha256);
+	initialize_sha224(&sha224);
 	output_handle->at = 0;
 	output_handle->args = args;
-	bytes_copied = request_chunk(output_handle, sha256.digest);
+	bytes_copied = request_chunk(output_handle, sha224.digest);
 	while (bytes_copied >= 64 - 8)
 	{
-		ft_bzero(&sha256.chunk, sizeof(sha256.chunk));
-		fill_chunk(sha256.digest->string, &sha256.chunk, 0, &padded);
-		one_chunk(&sha256);
-		make_digest_sha256(sha256.state, sha256.digest);
-		bytes_copied = request_chunk(output_handle, sha256.digest);
+		ft_bzero(&sha224.chunk, sizeof(sha224.chunk));
+		fill_chunk(sha224.digest->string, &sha224.chunk, 0, &padded);
+		one_chunk(&sha224);
+		make_digest_sha224(sha224.state, sha224.digest);
+		bytes_copied = request_chunk(output_handle, sha224.digest);
 	}
-	ft_bzero(&sha256.chunk, sizeof(sha256.chunk));
-	fill_chunk(sha256.digest->string, &sha256.chunk, 1, &padded);
-	sha256.chunk.block[15] = convert_endian_32bits(output_handle->at * 8);
-	one_chunk(&sha256);
-	make_digest_sha256(sha256.state, sha256.digest);
-	return (sha256.digest);
+	ft_bzero(&sha224.chunk, sizeof(sha224.chunk));
+	fill_chunk(sha224.digest->string, &sha224.chunk, 1, &padded);
+	sha224.chunk.block[15] = convert_endian_32bits(output_handle->at * 8);
+	one_chunk(&sha224);
+	make_digest_sha224(sha224.state, sha224.digest);
+	sha224.digest->length = 56;
+	return (sha224.digest);
 }

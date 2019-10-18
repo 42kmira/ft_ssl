@@ -6,33 +6,55 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 22:14:10 by kmira             #+#    #+#             */
-/*   Updated: 2019/10/18 01:47:27 by kmira            ###   ########.fr       */
+/*   Updated: 2019/10/18 03:29:30 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl_main.h"
 
+void	print_upper(char *command)
+{
+	int		i;
+	char	*print;
+
+	i = 0;
+	print = ft_strdup(command);
+	while (print[i] != '\0')
+	{
+		if (ft_islower(print[i]))
+			print[i] += ('A' - 'a');
+		i++;
+	}
+	write(1, print, ft_strlen(print));
+	write(1, " ("BOLDBLUE, 12);
+	free(print);
+}
+
 void	print_output(t_output *output_handler, t_string *digest, char *args)
 {
-	if ((output_handler->flags & Q_FLAG) == 0
-	&& (output_handler->flags & R_FLAG) == 0
-	&& (output_handler->flags & P_FLAG) == 0)
+	if ((output_handler->flags & Q_FLAG) == 0 && (output_handler->flags
+	& R_FLAG) == 0 && (output_handler->flags & P_FLAG) == 0)
 	{
-		if (ft_strequ(output_handler->command, "md5"))
-			write(1, "MD5 (\"", 7);
-		if (ft_strequ(output_handler->command, "sha256"))
-			write(1, "SHA256 (\"", 10);
+		print_upper(output_handler->command);
+		if (output_handler->flags & S_FLAG)
+			write(1, COLOR_RESET"\""BOLDCYAN, 15);
 		write(1, args, ft_strlen(args));
-		write(1, "\") = ", 6);
+		if (output_handler->flags & S_FLAG)
+			write(1, COLOR_RESET"\"", 6);
+		write(1, COLOR_RESET") = ", 9);
 	}
+	write(1, BOLDMAGENTA"", 10);
 	write(1, digest->string, digest->length);
 	if (output_handler->flags & R_FLAG && (output_handler->flags & P_FLAG) == 0)
 	{
-		write(1, " \"", 2);
+		write(1, COLOR_RESET" "BOLDBLUE, 15);
+		if (output_handler->flags & S_FLAG)
+			write(1, COLOR_RESET"\""BOLDCYAN, 15);
 		write(1, args, ft_strlen(args));
-		write(1, "\"", 1);
+		if (output_handler->flags & S_FLAG)
+			write(1, COLOR_RESET"\"", 6);
 	}
-	write(1, "\n", 1);
+	write(1, COLOR_RESET"\n", 6);
 	free(digest->string);
 	free(digest);
 }
@@ -53,19 +75,20 @@ void	print_wrong_command(char *arg)
 
 void	print_file_err(char *file_name, char *command)
 {
+	write(1, "ft_ssl: ", 9);
 	write(1, command, ft_strlen(command));
 	write(1, ": ", 2);
-	if (errno & EACCES)
-	{
-		write(1, file_name, ft_strlen(file_name));
-		write(1, ": Permission denied\n", 21);
-	}
-	else if (errno & EISDIR)
+	if (errno == EISDIR)
 	{
 		write(1, file_name, ft_strlen(file_name));
 		write(1, ": Is a directory\n", 18);
 	}
-	else if (errno & ENOENT)
+	else if (errno == EACCES)
+	{
+		write(1, file_name, ft_strlen(file_name));
+		write(1, ": Permission denied\n", 21);
+	}
+	else if (errno == ENOENT)
 	{
 		write(1, file_name, ft_strlen(file_name));
 		write(1, ": No such file or directory\n", 29);
