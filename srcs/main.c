@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/05 16:28:18 by kmira             #+#    #+#             */
-/*   Updated: 2019/10/18 01:54:15 by kmira            ###   ########.fr       */
+/*   Updated: 2019/10/18 15:25:28 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,5 @@ int		main(int aa, char **args)
 		i = flag_loop(&output_handler, &args[FLAG_START], crypto_function) + 2;
 		file_loop(&output_handler, &args[i], crypto_function);
 	}
-	// system("leaks ft_ssl");
 	return (0);
 }
