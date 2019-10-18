@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/05 16:29:26 by kmira             #+#    #+#             */
-/*   Updated: 2019/10/17 18:13:09 by kmira            ###   ########.fr       */
+/*   Updated: 2019/10/17 22:08:20 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ void		ft_strnrev(char *str, size_t n);
 size_t		ft_strncpy_i(char *dst, const char *src, size_t len);
 void		fill_chunk(char *str, t_512_chunk *chunk, int final, int *padded);
 
+int			is_without_input(char **args, int start, enum e_flags *result);
+void		turn_flag_on(char key, enum e_flags *result);
 int			flag_loop(t_output *output_handler, char **args,
 			t_string *(*crypto_fun)(t_output *, char *));
 void		file_loop(t_output *output_handler, char **args,

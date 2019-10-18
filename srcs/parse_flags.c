@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/05 17:03:03 by kmira             #+#    #+#             */
-/*   Updated: 2019/10/17 21:50:41 by kmira            ###   ########.fr       */
+/*   Updated: 2019/10/17 23:17:37 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,11 +122,10 @@ int		flag_loop(t_output *output_handler, char **args,
 	t_string	*digest;
 
 	i = 0;
-	j = 0;
-	if (args[i][j] != '-')
+	if (args[i][0] != '-')
 		return (i);
 	j = 1;
-	flag_result = 1;
+	flag_result = 0;
 	while (args[i] != NULL && flag_result != TRY_FILE_LOOP)
 	{
 		flag_result = fetch_flags(&output_handler->flags, args, &i, &j);
@@ -142,3 +141,35 @@ int		flag_loop(t_output *output_handler, char **args,
 	}
 	return (i);
 }
+
+// int		flag_loop(t_output *output_handler, char **args,
+// 	t_string *(*do_crypto_function)(t_output *, char *))
+// {
+// 	int			i;
+// 	int			j;
+// 	int			flag_result;
+// 	t_string	*digest;
+
+// 	i = 0;
+// 	if (args[i][0] != '-')
+// 		return (i);
+// 	j = 1;
+// 	flag_result = 0;
+// 	while (args[i] != NULL && flag_result != TRY_FILE_LOOP)
+// 	{
+// 		flag_result = fetch_flags(&output_handler->flags, args, &i, &j);
+// 		ready_input(args, &i, &j, output_handler);
+// 		if (flag_result == COMPUTE_FUNCTION)
+// 		{
+// 			digest = do_crypto_function(output_handler, &args[i][j]);
+// 			print_output(output_handler, digest, &args[i][j]);
+// 		}
+// 		else if (flag_result == TRY_FILE_LOOP)
+// 		{
+// 			i++;
+// 			break ;
+// 		}
+// 		flag_result = ready_next_flag(output_handler, &i, &j, args);
+// 	}
+// 	return (i);
+// }
