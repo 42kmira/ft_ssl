@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/13 20:06:07 by kmira             #+#    #+#             */
-/*   Updated: 2019/10/18 00:31:47 by kmira            ###   ########.fr       */
+/*   Updated: 2019/10/18 00:39:28 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,10 @@ size_t	request_from_file(t_string *dest, int bytes, t_output *output_handler)
 		write(1, dest->string, 64 - bytes);
 	output_handler->at += result;
 	if (output_handler->flags & P_FLAG)
+	{
 		output_handler->at += (64 - bytes - result);
+		return (64 - bytes);
+	}
 	return (result);
 }
 
