@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/05 16:51:28 by kmira             #+#    #+#             */
-/*   Updated: 2019/10/17 10:05:13 by kmira            ###   ########.fr       */
+/*   Updated: 2019/10/17 17:06:14 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,51 +48,56 @@ static void	make_digest_md5(uint32_t block[4], t_string *dest)
 	}
 }
 
+static void	do_round(uint32_t *num, uint32_t *f, uint32_t *g, int i)
+{
+	if (i <= 15)
+	{
+		*f = MD5_F(num[B], num[C], num[D]);
+		*g = i;
+	}
+	else if (i <= 31)
+	{
+		*f = MD5_G(num[B], num[C], num[D]);
+		*g = (5 * i + 1) % 16;
+	}
+	else if (i <= 47)
+	{
+		*f = MD5_H(num[B], num[C], num[D]);
+		*g = (3 * i + 5) % 16;
+	}
+	else
+	{
+		*f = MD5_I(num[B], num[C], num[D]);
+		*g = (7 * i) % 16;
+	}
+}
+
 static void	one_chunk(t_md5 *md5_info)
 {
-	int i;
+	int			i;
+	u_int32_t	num[4];
 	u_int32_t	g;
 	u_int32_t	f;
 
-	u_int32_t a = md5_info->state[A];
-	u_int32_t b = md5_info->state[B];
-	u_int32_t c = md5_info->state[C];
-	u_int32_t d = md5_info->state[D];
-
 	i = 0;
+	num[A] = md5_info->state[A];
+	num[B] = md5_info->state[B];
+	num[C] = md5_info->state[C];
+	num[D] = md5_info->state[D];
 	while (i < 64)
 	{
-		if (i <= 15)
-		{
-			f = MD5_F(b, c, d);
-			g = i;
-		}
-		else if (i <= 31)
-		{
-			f = MD5_G(b, c, d);
-			g = (5 * i + 1) % 16;
-		}
-		else if (i <= 47)
-		{
-			f = MD5_H(b, c, d);
-			g = (3 * i + 5) % 16;
-		}
-		else
-		{
-			f = MD5_I(b, c, d);
-			g = (7 * i) % 16;
-		}
-		f = f + a + g_k[i] + md5_info->chunk.block[g];
-		a = d;
-		d = c;
-		c = b;
-		b = b + LEFT_BIT_ROTATE32(f, g_s[i]);
+		do_round(num, &f, &g, i);
+		f = f + num[A] + g_k[i] + md5_info->chunk.block[g];
+		num[A] = num[D];
+		num[D] = num[C];
+		num[C] = num[B];
+		num[B] = num[B] + LEFT_BIT_ROTATE32(f, g_s[i]);
 		i++;
 	}
-	md5_info->state[A] = a + md5_info->state[A];
-	md5_info->state[B] = b + md5_info->state[B];
-	md5_info->state[C] = c + md5_info->state[C];
-	md5_info->state[D] = d + md5_info->state[D];
+	md5_info->state[A] += num[A];
+	md5_info->state[B] += num[B];
+	md5_info->state[C] += num[C];
+	md5_info->state[D] += num[D];
 }
 
 static void	fill_chunk
@@ -144,42 +149,40 @@ static void	fill_chunk
 	chunk->block[i] = transmutation_decive.num;
 }
 
-struct s_string	*crypto_algo_md5   (struct s_output *output_handle, char *args)
+static void	initialize_md5(t_md5 *md5_info)
+{
+	md5_info->state[A] = 0x67452301;
+	md5_info->state[B] = 0xefcdab89;
+	md5_info->state[C] = 0x98badcfe;
+	md5_info->state[D] = 0x10325476;
+	md5_info->digest = malloc(sizeof(*md5_info->digest) * (1));
+	md5_info->digest->string = malloc(sizeof(*md5_info->digest) * (32));
+	md5_info->digest->length = 32;
+}
+
+struct s_string	*crypto_algo_md5(struct s_output *output_handle, char *args)
 {
 	t_md5		md5;
-	t_string	dest;
 	int			padded;
 	size_t		bytes_copied;
 
 	padded = 0;
-	md5.state[A] = 0x67452301;
-	md5.state[B] = 0xefcdab89;
-	md5.state[C] = 0x98badcfe;
-	md5.state[D] = 0x10325476;
-
-	md5.digest = malloc(sizeof(*md5.digest) * (1));
-	md5.digest->string = malloc(sizeof(*md5.digest) * (32));
-	md5.digest->length = 32;
-
-	dest.string = malloc(sizeof(*dest.string) * (64 + 1));
-	dest.length = 64;
-
+	initialize_md5(&md5);
 	output_handle->at = 0;
 	output_handle->args = args;
-
-	bytes_copied = request_chunk(output_handle, &dest);
+	bytes_copied = request_chunk(output_handle, md5.digest);
 	while (bytes_copied >= 64 - 8)
 	{
 		ft_bzero(&md5.chunk, sizeof(md5.chunk));
-		fill_chunk(dest.string, &md5.chunk, 0, output_handle->at, &padded);
+		fill_chunk(md5.digest->string, &md5.chunk,
+					0, output_handle->at, &padded);
 		one_chunk(&md5);
 		make_digest_md5(md5.state, md5.digest);
-		bytes_copied = request_chunk(output_handle, &dest);
+		bytes_copied = request_chunk(output_handle, md5.digest);
 	}
 	ft_bzero(&md5.chunk, sizeof(md5.chunk));
-	fill_chunk(dest.string, &md5.chunk, 1, output_handle->at, &padded);
+	fill_chunk(md5.digest->string, &md5.chunk, 1, output_handle->at, &padded);
 	one_chunk(&md5);
 	make_digest_md5(md5.state, md5.digest);
 	return (md5.digest);
 }
-

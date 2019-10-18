@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 20:25:06 by kmira             #+#    #+#             */
-/*   Updated: 2019/10/17 11:57:13 by kmira            ###   ########.fr       */
+/*   Updated: 2019/10/17 12:17:08 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,8 +146,6 @@ static void	fill_chunk(char *str, t_512_chunk *chunk, int final, int at, int *pa
 		transmutation_decive.args[j] = str[i * 4 + j];
 		j++;
 	}
-	if (final == 1)
-		chunk->block[15] = convert_endian_32bits(at * 8);
 	if (len < 64 && *padded == 0)
 	{
 		if (j == 4)
@@ -162,9 +160,11 @@ static void	fill_chunk(char *str, t_512_chunk *chunk, int final, int at, int *pa
 		*padded = 1;
 	}
 	chunk->block[i] = transmutation_decive.num;
+	if (final == 1)
+		chunk->block[15] = convert_endian_32bits(at * 8);
 }
 
-void		initialize_sha256(t_sha256 *sha256_info)
+static void	initialize_sha256(t_sha256 *sha256_info)
 {
 	sha256_info->state[H0] = 0x6a09e667;
 	sha256_info->state[H1] = 0xbb67ae85;
