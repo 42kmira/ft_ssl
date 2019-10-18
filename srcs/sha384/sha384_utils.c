@@ -6,13 +6,12 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/17 18:17:53 by kmira             #+#    #+#             */
-/*   Updated: 2019/10/18 15:05:41 by kmira            ###   ########.fr       */
+/*   Updated: 2019/10/18 15:08:47 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl_main.h"
 #include "main_sha384.h"
-
 
 void	initialize_sha384(t_sha384 *sha384_info)
 {

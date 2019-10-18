@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 20:25:06 by kmira             #+#    #+#             */
-/*   Updated: 2019/10/18 04:40:00 by kmira            ###   ########.fr       */
+/*   Updated: 2019/10/18 15:09:39 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,6 @@ static void	one_chunk(t_sha256 *sha256_info)
 		w[i] = sha256_info->chunk.block[i];
 	}
 	extend_function(w);
-	// print_w(w);
 	i = -1;
 	while (++i < 8)
 		state[i] = sha256_info->state[i];

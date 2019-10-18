@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/17 18:17:53 by kmira             #+#    #+#             */
-/*   Updated: 2019/10/18 15:01:17 by kmira            ###   ########.fr       */
+/*   Updated: 2019/10/18 15:11:54 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 void	initialize_sha512(t_sha512 *sha512_info)
 {
-
 	sha512_info->state[H0] = 0x6a09e667f3bcc908;
 	sha512_info->state[H1] = 0xbb67ae8584caa73b;
 	sha512_info->state[H2] = 0x3c6ef372fe94f82b;

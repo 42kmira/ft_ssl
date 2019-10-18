@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 20:25:06 by kmira             #+#    #+#             */
-/*   Updated: 2019/10/18 15:01:25 by kmira            ###   ########.fr       */
+/*   Updated: 2019/10/18 15:21:41 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@ void		fill_chunk_e(char *str, t_1024_chunk *chunk, int final, int *padded)
 		transmutation_decive.num = 0b10000000;
 		i++;
 	}
-	else if (len < 64 && *padded == 0)
+	else if (len < 128 && *padded == 0)
 		transmutation_decive.args[j] = 0b10000000;
-	*padded = (len < 64 && *padded == 0) ? 1 : 0;
+	*padded = (len < 128 && *padded == 0) ? 1 : 0;
 	chunk->block[i] = transmutation_decive.num;
 }
 
@@ -107,7 +107,6 @@ static void	one_chunk(t_sha512 *sha512_info)
 		w[i] = sha512_info->chunk.block[i];
 	}
 	extend_function(w);
-	print_we(w);
 	i = -1;
 	while (++i < 8)
 		state[i] = sha512_info->state[i];
@@ -128,7 +127,6 @@ t_string	*crypto_algo_sha512(t_output *output_handle, char *args)
 	output_handle->at = 0;
 	output_handle->args = args;
 	bytes_copied = request_chunk(output_handle, sha512.digest, 128);
-	printf("DEST: %s\n", sha512.digest->string);
 	while (bytes_copied >= 128 - 16)
 	{
 		ft_bzero(&sha512.chunk, sizeof(sha512.chunk));

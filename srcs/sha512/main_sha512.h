@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/08 17:32:55 by kmira             #+#    #+#             */
-/*   Updated: 2019/10/18 15:07:09 by kmira            ###   ########.fr       */
+/*   Updated: 2019/10/18 15:09:26 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 # define TEMP1 4
 # define TEMP2 5
 
-static uint64_t	g_k[80] = {
+static uint64_t		g_k[80] = {
 	0x428a2f98d728ae22, 0x7137449123ef65cd, 0xb5c0fbcfec4d3b2f,
 	0xe9b5dba58189dbbc, 0x3956c25bf348b538, 0x59f111f1b605d019,
 	0x923f82a4af194f9b, 0xab1c5ed5da6d8118, 0xd807aa98a3030242,
@@ -62,11 +62,11 @@ static uint64_t	g_k[80] = {
 	0x5fcb6fab3ad6faec, 0x6c44198c4a475817
 };
 
-typedef union	u_1024_chunk
+typedef union		u_1024_chunk
 {
-	uint8_t		str[1024];
-	u_int64_t	block[16];
-}				t_1024_chunk;
+	uint8_t			str[1024];
+	u_int64_t		block[16];
+}					t_1024_chunk;
 
 typedef struct		s_sha512
 {
