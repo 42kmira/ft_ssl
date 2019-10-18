@@ -6,7 +6,7 @@
 #    By: kmira <kmira@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/29 20:34:09 by kmira             #+#    #+#              #
-#    Updated: 2019/10/17 18:19:15 by kmira            ###   ########.fr        #
+#    Updated: 2019/10/17 21:50:08 by kmira            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ SRCS = \
 		io_input_reading \
 		io_output \
 		main \
+		parse_files \
 		parse_flags \
 		utils
 

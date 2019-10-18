@@ -6,13 +6,13 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/05 17:03:03 by kmira             #+#    #+#             */
-/*   Updated: 2019/10/16 21:47:03 by kmira            ###   ########.fr       */
+/*   Updated: 2019/10/17 21:50:41 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl_main.h"
 
-void		turn_flag_on(char key, enum e_flags *result)
+void	turn_flag_on(char key, enum e_flags *result)
 {
 	int		i;
 	char	lock;
@@ -63,8 +63,7 @@ int		fetch_flags(enum e_flags *result, char **args, int *i, int *j)
 ** This helps keep things seperate.
 */
 
-int		setup_next_flag_read
-	(t_output *output_handler, int *i, int *j, char **args)
+int		ready_next_flag(t_output *output_handler, int *i, int *j, char **args)
 {
 	if (output_handler->flags & S_FLAG)
 	{
@@ -94,8 +93,7 @@ int		setup_next_flag_read
 ** This gets args in the right position for the crypto function
 */
 
-void		ready_input
-	(char **args, int *i, int *j, t_output *output_handler)
+void	ready_input(char **args, int *i, int *j, t_output *output_handler)
 {
 	if (output_handler->flags & S_FLAG)
 	{
@@ -111,22 +109,12 @@ void		ready_input
 	}
 	if (output_handler->flags & P_FLAG)
 		output_handler->fd = 0;
-}
-
-/*
-** This will need to probably return where it left off or something to continie
-** the file parsing.
-*/
-
-void	override_flags(t_output *output_handler)
-{
 	if (output_handler->flags & (Q_FLAG))
 		output_handler->flags &= ~(R_FLAG);
 }
 
-int		flag_loop
-	(t_output *output_handler, char **args,
-	t_string *(*crypto_function)(t_output *, char *))
+int		flag_loop(t_output *output_handler, char **args,
+	t_string *(*do_crypto_function)(t_output *, char *))
 {
 	int			i;
 	int			j;
@@ -137,50 +125,20 @@ int		flag_loop
 	j = 0;
 	if (args[i][j] != '-')
 		return (i);
-	else
-		j = j + 1;
-	while (args[i] != NULL)
+	j = 1;
+	flag_result = 1;
+	while (args[i] != NULL && flag_result != TRY_FILE_LOOP)
 	{
 		flag_result = fetch_flags(&output_handler->flags, args, &i, &j);
-		override_flags(output_handler);
 		ready_input(args, &i, &j, output_handler);
-		if (flag_result == COMPUTE_FUNCTION)
-		{
-			digest = crypto_function(output_handler, &args[i][j]);
-			print_output(output_handler, digest, &args[i][j]);
-		}
-		else if (flag_result == TRY_FILE_LOOP)
+		if (flag_result == TRY_FILE_LOOP)
 		{
 			i++;
 			break ;
 		}
-		flag_result = setup_next_flag_read(output_handler, &i, &j, args);
-		if (flag_result == TRY_FILE_LOOP)
-			break ;
+		digest = do_crypto_function(output_handler, &args[i][j]);
+		print_output(output_handler, digest, &args[i][j]);
+		flag_result = ready_next_flag(output_handler, &i, &j, args);
 	}
 	return (i);
-}
-
-void		file_loop
-	(t_output *output_handler, char **args,
-	t_string *(*crypto_function)(t_output *, char *))
-{
-	int			i;
-	t_string	*digest;
-
-	i = 0;
-	while (args[i] != NULL)
-	{
-		output_handler->flags |= F_FLAG;
-		output_handler->fd = open(args[i], O_RDONLY);
-		if (output_handler->fd == -1)
-			printf("md5: Test0: No such file or directory\n");
-		else
-		{
-			digest = crypto_function(output_handler, args[i]);
-			print_output(output_handler, digest, args[i]);
-		}
-		output_handler->flags &= (~F_FLAG);
-		i++;
-	}
 }
