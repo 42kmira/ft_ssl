@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/05 16:29:26 by kmira             #+#    #+#             */
-/*   Updated: 2019/10/17 22:08:20 by kmira            ###   ########.fr       */
+/*   Updated: 2019/10/18 00:58:30 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,9 @@ t_string	*crypto_algo_sha256(struct s_output *output_handle, char *args);
 ** Formats the output of the message.
 */
 
-void		print_output
-	(t_output *output_handler, t_string *digest, char *args);
+void		print_output(t_output *output_handler, t_string *digest, char *arg);
+void		print_wrong_command(char *arg);
+void		print_usage_error(void);
 
 /*
 ** -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-  -_---_-_-

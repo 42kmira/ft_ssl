@@ -6,14 +6,13 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 22:14:10 by kmira             #+#    #+#             */
-/*   Updated: 2019/10/17 21:09:52 by kmira            ###   ########.fr       */
+/*   Updated: 2019/10/18 01:00:37 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl_main.h"
 
-void	print_output
-	(t_output *output_handler, t_string *digest, char *args)
+void	print_output(t_output *output_handler, t_string *digest, char *args)
 {
 	if ((output_handler->flags & Q_FLAG) == 0
 	&& (output_handler->flags & R_FLAG) == 0
@@ -36,4 +35,18 @@ void	print_output
 	write(1, "\n", 1);
 	free(digest->string);
 	free(digest);
+}
+
+void	print_usage_error(void)
+{
+	ft_puterror("usage: ft_ssl command [command opts] [command args]");
+}
+
+void	print_wrong_command(char *arg)
+{
+	write(1, "ft_ssl: Error: '", 17);
+	write(1, arg, ft_strlen(arg));
+	write(1, "' is an invalid command.\n\nStandard comman", 42);
+	write(1, "ds:\n\nMessage Digest commands:\nmd5\nsha256\n", 42);
+	ft_puterror("");
 }

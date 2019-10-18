@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/05 16:43:40 by kmira             #+#    #+#             */
-/*   Updated: 2019/10/16 21:47:03 by kmira            ###   ########.fr       */
+/*   Updated: 2019/10/18 00:58:10 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,5 @@ void	get_command(char *key, t_string *(**result)(t_output *, char *))
 		i++;
 	}
 	if (*result == NULL)
-		ft_puterror("Error, wrong function name, usage");
+		print_wrong_command(key);
 }

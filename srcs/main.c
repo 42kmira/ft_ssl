@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/05 16:28:18 by kmira             #+#    #+#             */
-/*   Updated: 2019/10/18 00:02:29 by kmira            ###   ########.fr       */
+/*   Updated: 2019/10/18 00:58:44 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int		main(int aa, char **args)
 
 	i = 0;
 	if (aa <= 1)
-		ft_puterror("USAGE ERROR\n");
+		print_usage_error();
 	get_command(args[1], &crypto_function);
 	ft_bzero(&output_handler, sizeof(output_handler));
 	output_handler.command = args[1];
