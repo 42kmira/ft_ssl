@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 20:25:06 by kmira             #+#    #+#             */
-/*   Updated: 2019/10/17 12:17:08 by kmira            ###   ########.fr       */
+/*   Updated: 2019/10/17 18:18:15 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,69 +116,6 @@ static void	one_chunk(t_sha256 *sha256_info)
 		sha256_info->state[i] = state[i] + sha256_info->state[i];
 }
 
-static void	fill_chunk(char *str, t_512_chunk *chunk, int final, int at, int *padded)
-{
-	int			i;
-	int			j;
-	int			len;
-	int			stop;
-	t_conveter	transmutation_decive;
-
-	len = ft_strlen(str);
-	ft_bzero(chunk, 512);
-	i = 0;
-	stop = 16;
-	if (final == 1)
-		stop = 13;
-	while (i < stop)
-	{
-		if ((i + 1) * 4 >= len)
-			break ;
-		transmutation_decive.num = 0;
-		ft_strncpy(transmutation_decive.args, &str[i * 4], 4);
-		chunk->block[i] = transmutation_decive.num;
-		i++;
-	}
-	transmutation_decive.num = 0;
-	j = 0;
-	while (str[i * 4 + j] != '\0' && j < 4)
-	{
-		transmutation_decive.args[j] = str[i * 4 + j];
-		j++;
-	}
-	if (len < 64 && *padded == 0)
-	{
-		if (j == 4)
-		{
-			chunk->block[i] = transmutation_decive.num;
-			transmutation_decive.num = 0;
-			transmutation_decive.args[0] = 0b10000000;
-			i++;
-		}
-		else
-			transmutation_decive.args[j] = 0b10000000;
-		*padded = 1;
-	}
-	chunk->block[i] = transmutation_decive.num;
-	if (final == 1)
-		chunk->block[15] = convert_endian_32bits(at * 8);
-}
-
-static void	initialize_sha256(t_sha256 *sha256_info)
-{
-	sha256_info->state[H0] = 0x6a09e667;
-	sha256_info->state[H1] = 0xbb67ae85;
-	sha256_info->state[H2] = 0x3c6ef372;
-	sha256_info->state[H3] = 0xa54ff53a;
-	sha256_info->state[H4] = 0x510e527f;
-	sha256_info->state[H5] = 0x9b05688c;
-	sha256_info->state[H6] = 0x1f83d9ab;
-	sha256_info->state[H7] = 0x5be0cd19;
-	sha256_info->digest = malloc(sizeof(*sha256_info->digest) * (1));
-	sha256_info->digest->string = malloc(sizeof(*sha256_info->digest) * (64));
-	sha256_info->digest->length = 64;
-}
-
 t_string	*crypto_algo_sha256(t_output *output_handle, char *args)
 {
 	t_sha256	sha256;
@@ -193,14 +130,13 @@ t_string	*crypto_algo_sha256(t_output *output_handle, char *args)
 	while (bytes_copied >= 64 - 8)
 	{
 		ft_bzero(&sha256.chunk, sizeof(sha256.chunk));
-		fill_chunk(sha256.digest->string, &sha256.chunk,
-					0, output_handle->at, &padded);
+		fill_chunk(sha256.digest->string, &sha256.chunk, 0, &padded);
 		one_chunk(&sha256);
 		make_digest_sha256(sha256.state, sha256.digest);
 		bytes_copied = request_chunk(output_handle, sha256.digest);
 	}
-	fill_chunk(sha256.digest->string, &sha256.chunk,
-				1, output_handle->at, &padded);
+	fill_chunk(sha256.digest->string, &sha256.chunk, 1, &padded);
+	sha256.chunk.block[15] = convert_endian_32bits(output_handle->at * 8);
 	one_chunk(&sha256);
 	make_digest_sha256(sha256.state, sha256.digest);
 	return (sha256.digest);

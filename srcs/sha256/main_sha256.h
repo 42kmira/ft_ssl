@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/08 17:32:55 by kmira             #+#    #+#             */
-/*   Updated: 2019/10/17 10:33:05 by kmira            ###   ########.fr       */
+/*   Updated: 2019/10/17 18:21:16 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include <unistd.h>
 
-uint32_t		g_h[8] =
+static uint32_t		g_h[8] =
 {
 	0x6a09e667,
 	0xbb67ae85,
@@ -43,7 +43,7 @@ uint32_t		g_h[8] =
 # define TEMP1 4
 # define TEMP2 5
 
-uint32_t		g_k[64] =
+static uint32_t		g_k[64] =
 {
 	0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5,
 	0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5,
@@ -68,6 +68,10 @@ typedef struct	s_sha256
 	uint32_t	state[8];
 	t_512_chunk	chunk;
 	t_string	*digest;
+	uint8_t		padded;
 }				t_sha256;
+
+void	initialize_sha256(t_sha256 *sha256_info);
+void	free_sha256(t_sha256 *sha256_info);
 
 #endif

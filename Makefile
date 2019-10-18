@@ -6,7 +6,7 @@
 #    By: kmira <kmira@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/29 20:34:09 by kmira             #+#    #+#              #
-#    Updated: 2019/10/16 02:48:59 by kmira            ###   ########.fr        #
+#    Updated: 2019/10/17 18:19:15 by kmira            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,10 +19,12 @@ LIBRARY = libft/libft.a
 INCLUDE = -I includes
 
 MD5_SRCS = \
-	main_md5
+	main_md5 \
+	md5_utils
 
 SHA256_SRCS = \
-	main_sha256
+	main_sha256 \
+	sha256_utils
 
 SRCS = \
 		debug \

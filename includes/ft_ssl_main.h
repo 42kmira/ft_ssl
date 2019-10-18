@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/05 16:29:26 by kmira             #+#    #+#             */
-/*   Updated: 2019/10/17 10:53:08 by kmira            ###   ########.fr       */
+/*   Updated: 2019/10/17 18:13:09 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ void		get_command(char *key, t_string *(**result)(t_output *, char *));
 u_int32_t	convert_endian_32bits(u_int32_t val);
 void		ft_strnrev(char *str, size_t n);
 size_t		ft_strncpy_i(char *dst, const char *src, size_t len);
+void		fill_chunk(char *str, t_512_chunk *chunk, int final, int *padded);
 
 int			flag_loop(t_output *output_handler, char **args,
 			t_string *(*crypto_fun)(t_output *, char *));
