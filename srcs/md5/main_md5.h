@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 22:20:46 by kmira             #+#    #+#             */
-/*   Updated: 2019/10/17 18:17:12 by kmira            ###   ########.fr       */
+/*   Updated: 2019/10/17 18:23:04 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static const uint32_t	g_k[64] = {
 	0xf7537e82, 0xbd3af235, 0x2ad7d2bb, 0xeb86d391
 };
 
-static const u_int32_t g_s[64] =
+static const u_int32_t	g_s[64] =
 {
 	7, 12, 17, 22,
 	7, 12, 17, 22,
@@ -60,15 +60,15 @@ static const u_int32_t g_s[64] =
 # define C 2
 # define D 3
 
-typedef struct	s_md5
+typedef struct			s_md5
 {
-	uint32_t	state[4];
-	t_512_chunk	chunk;
-	t_string	*digest;
-	uint8_t		padded;
-}				t_md5;
+	uint32_t			state[4];
+	t_512_chunk			chunk;
+	t_string			*digest;
+	uint8_t				padded;
+}						t_md5;
 
-void	initialize_md5(t_md5 *md5_info);
-void	free_md5(t_md5 *md5_info);
+void					initialize_md5(t_md5 *md5_info);
+void					free_md5(t_md5 *md5_info);
 
 #endif
