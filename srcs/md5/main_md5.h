@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 22:20:46 by kmira             #+#    #+#             */
-/*   Updated: 2019/10/17 18:23:04 by kmira            ###   ########.fr       */
+/*   Updated: 2019/10/18 01:27:52 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define MAIN_MD5_H
 
 # include <stdint.h>
+# include <errno.h>
+
 # include "ft_ssl_main.h"
 
 static const uint32_t	g_k[64] = {

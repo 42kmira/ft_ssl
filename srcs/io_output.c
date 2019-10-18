@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 22:14:10 by kmira             #+#    #+#             */
-/*   Updated: 2019/10/18 01:00:37 by kmira            ###   ########.fr       */
+/*   Updated: 2019/10/18 01:47:27 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,26 @@ void	print_wrong_command(char *arg)
 	write(1, "' is an invalid command.\n\nStandard comman", 42);
 	write(1, "ds:\n\nMessage Digest commands:\nmd5\nsha256\n", 42);
 	ft_puterror("");
+}
+
+void	print_file_err(char *file_name, char *command)
+{
+	write(1, command, ft_strlen(command));
+	write(1, ": ", 2);
+	if (errno & EACCES)
+	{
+		write(1, file_name, ft_strlen(file_name));
+		write(1, ": Permission denied\n", 21);
+	}
+	else if (errno & EISDIR)
+	{
+		write(1, file_name, ft_strlen(file_name));
+		write(1, ": Is a directory\n", 18);
+	}
+	else if (errno & ENOENT)
+	{
+		write(1, file_name, ft_strlen(file_name));
+		write(1, ": No such file or directory\n", 29);
+	}
+	errno = 0;
 }

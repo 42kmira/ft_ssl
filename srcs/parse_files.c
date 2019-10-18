@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/17 21:49:29 by kmira             #+#    #+#             */
-/*   Updated: 2019/10/17 22:46:57 by kmira            ###   ########.fr       */
+/*   Updated: 2019/10/18 01:43:52 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ void	file_loop
 	{
 		output_handler->flags |= F_FLAG;
 		output_handler->fd = open(args[i], O_RDONLY);
-		if (output_handler->fd == -1)
-			printf("md5: Test0: No such file or directory\n");
+		if (output_handler->fd == -1 || (read(output_handler->fd, &i, 0)))
+			print_file_err(args[i], output_handler->command);
 		else
 		{
 			digest = crypto_function(output_handler, args[i]);
