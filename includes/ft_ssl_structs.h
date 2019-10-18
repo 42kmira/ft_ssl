@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/05 16:36:42 by kmira             #+#    #+#             */
-/*   Updated: 2019/10/16 21:56:49 by kmira            ###   ########.fr       */
+/*   Updated: 2019/10/18 15:00:26 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,11 @@ typedef union	u_converter
 	u_int32_t	num;
 	char		args[4];
 }				t_conveter;
+
+typedef union	u_converter_e
+{
+	u_int64_t	num;
+	char		args[8];
+}				t_conveter_e;
 
 #endif

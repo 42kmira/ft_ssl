@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/08 17:32:55 by kmira             #+#    #+#             */
-/*   Updated: 2019/10/18 04:14:00 by kmira            ###   ########.fr       */
+/*   Updated: 2019/10/18 15:07:01 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,5 @@ typedef struct		s_sha256
 }					t_sha256;
 
 void				initialize_sha256(t_sha256 *sha256_info);
-void				free_sha256(t_sha256 *sha256_info);
 
 #endif

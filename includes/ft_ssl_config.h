@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/05 16:38:07 by kmira             #+#    #+#             */
-/*   Updated: 2019/10/18 04:11:12 by kmira            ###   ########.fr       */
+/*   Updated: 2019/10/18 15:04:35 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ typedef struct	s_function_pair
 struct s_string *crypto_algo_md5(struct s_output *output_handle, char *args);
 struct s_string *crypto_algo_sha256(struct s_output *output_handle, char *args);
 struct s_string *crypto_algo_sha224(struct s_output *output_handle, char *args);
+struct s_string *crypto_algo_sha512(struct s_output *output_handle, char *args);
+struct s_string *crypto_algo_sha384(struct s_output *output_handle, char *args);
 
 # define NULL_CRYPTO_FUNCTION NULL
 
@@ -68,6 +70,8 @@ static t_function_pair g_crypto_dispatch_table[] =
 	{"md5", &crypto_algo_md5},
 	{"sha256", &crypto_algo_sha256},
 	{"sha224", &crypto_algo_sha224},
+	{"sha512", &crypto_algo_sha512},
+	{"sha384", &crypto_algo_sha384},
 	{"\0", NULL_CRYPTO_FUNCTION}
 };
 

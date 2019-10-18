@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 20:25:06 by kmira             #+#    #+#             */
-/*   Updated: 2019/10/18 04:19:41 by kmira            ###   ########.fr       */
+/*   Updated: 2019/10/18 04:40:14 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,14 +127,14 @@ t_string	*crypto_algo_sha224(t_output *output_handle, char *args)
 	initialize_sha224(&sha224);
 	output_handle->at = 0;
 	output_handle->args = args;
-	bytes_copied = request_chunk(output_handle, sha224.digest);
+	bytes_copied = request_chunk(output_handle, sha224.digest, 64);
 	while (bytes_copied >= 64 - 8)
 	{
 		ft_bzero(&sha224.chunk, sizeof(sha224.chunk));
 		fill_chunk(sha224.digest->string, &sha224.chunk, 0, &padded);
 		one_chunk(&sha224);
 		make_digest_sha224(sha224.state, sha224.digest);
-		bytes_copied = request_chunk(output_handle, sha224.digest);
+		bytes_copied = request_chunk(output_handle, sha224.digest, 64);
 	}
 	ft_bzero(&sha224.chunk, sizeof(sha224.chunk));
 	fill_chunk(sha224.digest->string, &sha224.chunk, 1, &padded);

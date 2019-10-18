@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/08 17:32:55 by kmira             #+#    #+#             */
-/*   Updated: 2019/10/18 04:07:31 by kmira            ###   ########.fr       */
+/*   Updated: 2019/10/18 15:06:53 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,5 @@ typedef struct		s_sha224
 }					t_sha224;
 
 void				initialize_sha224(t_sha224 *sha224_info);
-void				free_sha224(t_sha224 *sha224_info);
 
 #endif

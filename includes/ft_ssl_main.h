@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/05 16:29:26 by kmira             #+#    #+#             */
-/*   Updated: 2019/10/18 01:25:23 by kmira            ###   ########.fr       */
+/*   Updated: 2019/10/18 15:04:57 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@
 ** File: input_reading.c
 */
 
-int			request_chunk(t_output *output_handler, t_string *dest);
+int			request_chunk(t_output *output_handler, t_string *dest, int bytes);
 size_t		request_from_string
 			(t_string *dest, int bytes, t_output *output_handler);
 
@@ -85,6 +85,7 @@ void		get_command(char *key, t_string *(**result)(t_output *, char *));
 */
 
 u_int32_t	convert_endian_32bits(u_int32_t val);
+uint64_t	convert_endian_64bits(uint64_t val);
 void		ft_strnrev(char *str, size_t n);
 size_t		ft_strncpy_i(char *dst, const char *src, size_t len);
 void		fill_chunk(char *str, t_512_chunk *chunk, int final, int *padded);

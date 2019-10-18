@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 00:44:48 by kmira             #+#    #+#             */
-/*   Updated: 2019/10/18 03:17:31 by kmira            ###   ########.fr       */
+/*   Updated: 2019/10/18 14:59:22 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,28 @@ u_int32_t	convert_endian_32bits(u_int32_t val)
 
 	x = ((0XFF00FF00 & val) >> 8) | ((0X00FF00FF & val) << 8);
 	x = ((0XFFFF0000 & x) >> 16) | ((0X0000FFFF & x) << 16);
+	return (x);
+}
+
+/*
+** The conversion of endianness works in the following way:
+** BASE:     1010 2010 | 3010 4010 | 5010 6010 | 7010 8010
+** norm:   | 9010 a010 | b010 c010 | d010 e010 | f010 g010
+** 8_SHIFT:  3010 4010 | 1010 2010 | 7010 8010 | 5010 6010
+** norm:   | b010 c010 | 9010 a010 | f010 g010 | d010 e010
+** 16_SHIFT: 7010 8010 | 5010 6010 | 3010 4010 | 1010 2010
+** norm:   | f010 g010 | d010 e010 | b010 c010 | 9010 a010
+** 32_SHIFT: f010 g010 | d010 e010 | b010 c010 | 9010 a010
+** norm:   | 7010 8010 | 5010 6010 | 3010 4010 | 1010 2010
+*/
+
+uint64_t	convert_endian_64bits(uint64_t val)
+{
+	uint64_t x;
+
+	x = ((0XFF00FF00FF00FF00 & val) >> 8) | ((0X00FF00FF00FF00FF & val) << 8);
+	x = ((0XFFFF0000FFFF0000 & x) >> 16) | ((0X0000FFFF0000FFFF & x) << 16);
+	x = ((0XFFFFFFFF00000000 & x) >> 32) | ((0X00000000FFFFFFFF & x) << 32);
 	return (x);
 }
 

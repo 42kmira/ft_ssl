@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/05 16:51:28 by kmira             #+#    #+#             */
-/*   Updated: 2019/10/18 03:28:45 by kmira            ###   ########.fr       */
+/*   Updated: 2019/10/18 04:40:29 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,14 +110,14 @@ t_string	*crypto_algo_md5(struct s_output *output_handle, char *args)
 	initialize_md5(&md5);
 	output_handle->at = 0;
 	output_handle->args = args;
-	bytes_copied = request_chunk(output_handle, md5.digest);
+	bytes_copied = request_chunk(output_handle, md5.digest, 64);
 	while (bytes_copied >= 64 - 8)
 	{
 		ft_bzero(&md5.chunk, sizeof(md5.chunk));
 		fill_chunk(md5.digest->string, &md5.chunk, 0, &padded);
 		one_chunk(&md5);
 		make_digest_md5(md5.state, md5.digest);
-		bytes_copied = request_chunk(output_handle, md5.digest);
+		bytes_copied = request_chunk(output_handle, md5.digest, 64);
 	}
 	ft_bzero(&md5.chunk, sizeof(md5.chunk));
 	fill_chunk(md5.digest->string, &md5.chunk, 1, &padded);

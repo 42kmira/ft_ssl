@@ -6,7 +6,7 @@
 /*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 22:20:46 by kmira             #+#    #+#             */
-/*   Updated: 2019/10/18 01:27:52 by kmira            ###   ########.fr       */
+/*   Updated: 2019/10/18 15:06:13 by kmira            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,5 @@ typedef struct			s_md5
 }						t_md5;
 
 void					initialize_md5(t_md5 *md5_info);
-void					free_md5(t_md5 *md5_info);
 
 #endif
