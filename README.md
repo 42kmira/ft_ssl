@@ -14,4 +14,12 @@ After the executable is made using the Makefile usage is:
 
 ./ft_ssl < Hash Function > [-pqr] [-s string] [file ...]
 
-![alt text](https://github.com/42kmira/ft_ssl/blob/master/resources/compare.gif)
+Below is a comparision of my program with the default openssl and md5 imlementation found on MacOS:
+
+<br>
+<img align="left" height="450" src="https://github.com/42kmira/ft_ssl/blob/master/resources/mine.gif" />
+<br>
+
+<br>
+<img align="left" height="450" src="https://github.com/42kmira/ft_ssl/blob/master/resources/system.gif" />
+<br>
