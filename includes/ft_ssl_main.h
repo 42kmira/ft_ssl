@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_ssl_main.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
+/*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/05 16:29:26 by kmira             #+#    #+#             */
-/*   Updated: 2019/10/18 15:04:57 by kmira            ###   ########.fr       */
+/*   Updated: 2020/10/23 18:31:15 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@
 # define STDIN_OPTION NULL
 
 # define COMPUTE_FUNCTION 1
-# define TRY_NEXT_ARGUEMENT 1
+# define TRY_NEXT_ARGUMENT 1
 
 # define TRY_FILE_LOOP 2
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_flags.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmira <kmira@student.42.fr>                +#+  +:+       +#+        */
+/*   By: home <home@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/05 17:03:03 by kmira             #+#    #+#             */
-/*   Updated: 2019/10/18 00:44:38 by kmira            ###   ########.fr       */
+/*   Updated: 2020/10/23 18:31:50 by home             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ int		fetch_flags(enum e_flags *result, char **args, int *i, int *j)
 /*
 ** This cleans up the flags and gets things ready for the next flag read.
 ** The logic here is particular to the flags that affect something with
-** arguements namely the -p and -s flags.
-** This helps keep things seperate.
+** arguments namely the -p and -s flags.
+** This helps keep things separate.
 */
 
 int		ready_next_flag(t_output *output_handler, int *i, int *j, char **args)
@@ -85,7 +85,7 @@ int		ready_next_flag(t_output *output_handler, int *i, int *j, char **args)
 			return (TRY_FILE_LOOP);
 	}
 	output_handler->at = 0;
-	return (TRY_NEXT_ARGUEMENT);
+	return (TRY_NEXT_ARGUMENT);
 }
 
 /*
@@ -105,7 +105,7 @@ void	ready_input(char **args, int *i, int *j, t_output *output_handler)
 		else
 			*j = *j + 1;
 		if (args[*i] == NULL)
-			ft_puterror("We require some sort of arguement\n");
+			ft_puterror("We require some sort of argument\n");
 	}
 	if (output_handler->flags & P_FLAG)
 		output_handler->fd = 0;
