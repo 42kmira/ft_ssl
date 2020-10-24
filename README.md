@@ -12,7 +12,7 @@ different hash function, making it easy to remove, or add new hash functions.
 
 After the executable is made using the Makefile usage is:
 
-./ft_ssl < Hash Function > [-pqr] [-s string] [file ...]
+```./ft_ssl < Hash Function > [-pqr] [-s string] [file ...]```
 
 Below is a comparision of my program with the default openssl and md5 imlementation found on MacOS:
 
