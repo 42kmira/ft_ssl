@@ -68,9 +68,6 @@ $(NAME): $(LIBRARY)
 $(LIBRARY):
 	make -C libft/
 
-# $(OBJS):
-# 	gcc -c $(FLAGS) $(INCLUDE) $(C_FILES)
-
 clean:
 	@echo "Removing all .o files"
 	@make -C libft/ clean
